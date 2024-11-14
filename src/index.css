@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  min-height: 100vh;
+  direction: rtl;
+
+  font-family: IranSans !important;
+}
+
+@font-face {
+  font-family: 'IranSans';
+  src: url('/Fonts/Iran-sans/ttfFa/IRANSansFaNumLight.ttf');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'IranSans';
+  src: url('/Fonts/Iran-sans/ttfFa/IRANSansFaNum.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'IranSans';
+  src: url('/Fonts/Iran-sans/ttfFa/IRANSansFaNumMedium.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'IranSans';
+  src: url('/Fonts/Iran-sans/ttfFa/IRANSansFaNumBold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'IranSans';
+  src: url('/Fonts/Iran-sans/ttfFa/IRANSansFaNumBlack.ttf');
+  font-weight: 900;
+}
+
+:root {
+  --gray: #b5bac3;
+  --dark-gray: #80808f;
+  --light-gray: #f3f6f9;
+  --slate: #464e5f;
+  --red: #ff0000;
+  --blue: #009ef7;
+  --green: #38c172;
+  --yellow: #ffe036;
+}
+
+/* agGrid */
+
+.ag-theme-quartz {
+  --ag-font-family: IranSans !important;
+  --ag-font-size: 12px !important;
+  --ag-font-weight: 700 !important;
+  --ag-header-background-color: var(--light-gray) !important;
+  --ag-odd-row-background-color: #f9f8f8 !important;
+  --ag-grid-size: 5px !important;
+  --ag-list-item-height: 20px !important;
+  --ag-widget-vertical-spacing: 8px !important;
+  --ag-selected-row-background-color: #b7e4ff !important;
+}
+
+.ag-theme-quartz .ag-header-cell-text {
+  color: #707171;
+  font-weight: 900 !important;
+  font-size: 13px;
+}
+
+.ag-header .ag-icon {
+  color: #707171;
+}
+
+.ag-theme-quartz .ag-text-field-input,
+.ag-theme-quartz .ag-number-field-input {
+  height: 8px !important;
+}
+
+.ag-cell-value {
+  font-weight: 600;
+}
+
+.ag-status-panel {
+  font-size: 13px !important;
+  font-weight: 900 !important;
+}

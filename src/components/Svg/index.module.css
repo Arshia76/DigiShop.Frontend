@@ -1,0 +1,10 @@
+.Grid_Icon svg {
+  width: 14px;
+  height: 14px;
+  font-weight: 400;
+  object-fit: cover;
+}
+
+.Grid_Icon path {
+  fill: currentColor;
+}

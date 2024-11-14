@@ -1,0 +1,17 @@
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "moduleResolution": "Bundler",
+    "target": "es6",
+    "module": "Preserve",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "lib": ["ES2021.String", "dom", "esnext"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

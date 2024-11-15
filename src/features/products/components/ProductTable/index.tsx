@@ -1,28 +1,48 @@
-import { Button, Table } from '@/components'
-import { useProductTable } from './useProductTable'
-import { ProductModal } from '../ProductModal'
+import { Button, SvgComponent, Table } from '@/components/ui';
+import { useProductTable } from './useProductTable';
+import { ProductModal } from '../ProductModal';
+import { Svg } from '@/assets';
 
 const ProductTable = () => {
-  const { actions, colDefs, gridRef, isFetching, productModal, setProductModal } = useProductTable()
+  const {
+    actions,
+    colDefs,
+    gridRef,
+    isFetching,
+    productModal,
+    setProductModal,
+  } = useProductTable();
   return (
-    <div className="h-[90%]">
-      <Button
-        colour="primary"
-        className="mb-4 ms-auto px-4 "
-        onClick={() =>
-          setProductModal({
-            isOpen: true,
-            type: 'add',
-            data: null,
-          })
-        }
-      >
-        افزودن محصول جدید
-      </Button>
-      <Table parentRef={gridRef} isLoading={isFetching} columnDefs={colDefs} actions={actions} />
-      <ProductModal productModal={productModal} setProductModal={setProductModal} />
+    <div className='h-[90%]'>
+      <div className='flex items-center justify-between'>
+        <h4 className='text-custom-black text-3xl font-bold'>محصولات</h4>
+        <Button
+          colour='primary'
+          icon={<SvgComponent src={Svg.Plus_Icon} className='Add_Btn_Icon' />}
+          className='mb-4 ms-auto px-4 '
+          onClick={() =>
+            setProductModal({
+              isOpen: true,
+              type: 'add',
+              data: null,
+            })
+          }
+        >
+          افزودن محصول جدید
+        </Button>
+      </div>
+      <Table
+        parentRef={gridRef}
+        isLoading={isFetching}
+        columnDefs={colDefs}
+        actions={actions}
+      />
+      <ProductModal
+        productModal={productModal}
+        setProductModal={setProductModal}
+      />
     </div>
-  )
-}
+  );
+};
 
-export { ProductTable }
+export { ProductTable };

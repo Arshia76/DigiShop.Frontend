@@ -1,25 +1,26 @@
-import { useRef, useState } from 'react'
-import { IModal } from '@/lib/interface'
-import { ColDef, ColGroupDef } from 'ag-grid-enterprise'
-import { CustomCellRendererProps } from 'ag-grid-react'
-import { GridActionItemProps } from '@/components/Table/components/actions'
-import { Svg } from '@/assets'
-import { useGetProductsQuery } from '../../service/query'
+import { useRef, useState } from 'react';
+import { IModal } from '@/lib/interface';
+import { ColDef, ColGroupDef } from 'ag-grid-enterprise';
+import { CustomCellRendererProps } from 'ag-grid-react';
+import { GridActionItemProps } from '@/components/ui/Table/components/actions';
+import { Svg } from '@/assets';
+import { useGetProductsQuery } from '../../service/query';
+import { ITableRef } from '@/components/ui/Table';
 
 export function useProductTable() {
   const [productModal, setProductModal] = useState<IModal>({
     data: null,
     isOpen: false,
     type: 'add',
-  })
+  });
 
-  const gridRef = useRef()
+  const gridRef = useRef<ITableRef<any> | null>(null);
 
   const colDefs: ColDef[] | ColGroupDef[] = [
     {
       field: 'title',
-      headerName: 'نام',
-      headerTooltip: 'نام',
+      headerName: 'عنوان',
+      headerTooltip: 'عنوان',
       checkboxSelection: true,
       headerCheckboxSelection: true,
     },
@@ -44,9 +45,11 @@ export function useProductTable() {
       // minWidth: 150,
       cellRenderer: 'actions',
     },
-  ]
+  ];
 
-  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (row: CustomCellRendererProps) => [
+  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (
+    row: CustomCellRendererProps
+  ) => [
     {
       theme: 'yellow',
       icon: Svg.Edit_Icon,
@@ -56,7 +59,7 @@ export function useProductTable() {
           type: 'edit',
           isOpen: true,
           data: row.data,
-        })
+        });
       },
     },
     {
@@ -64,19 +67,26 @@ export function useProductTable() {
       icon: Svg.Trash_Icon,
       title: 'حذف',
       onClick() {
-        return null
+        return null;
       },
     },
-  ]
+  ];
 
   const { isFetching } = useGetProductsQuery({
     onSuccess(res) {
-      gridRef?.current?.setData(res.data)
+      gridRef.current?.setData(res.data);
     },
     onError(error) {
-      console.log(error)
+      console.log(error);
     },
-  })
+  });
 
-  return { colDefs, gridRef, actions, isFetching, productModal, setProductModal }
+  return {
+    colDefs,
+    gridRef,
+    actions,
+    isFetching,
+    productModal,
+    setProductModal,
+  };
 }

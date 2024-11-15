@@ -1,11 +1,11 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 const ProductSchema = z.object({
   title: z
     .string({
-      required_error: 'نام محصول را وارد کنید',
+      required_error: 'عنوان محصول را وارد کنید',
     })
-    .min(1, 'نام محصول را وارد کنید'),
+    .min(1, 'عنوان محصول را وارد کنید'),
 
   description: z
     .string({
@@ -30,8 +30,8 @@ const ProductSchema = z.object({
       required_error: 'تصویر محصول را انتخاب کنید',
     })
     .min(1, 'تصویر محصول را انتخاب کنید'),
-})
+});
 
-export type ProductType = z.infer<typeof ProductSchema>
+export type ProductType = z.infer<typeof ProductSchema>;
 
-export { ProductSchema }
+export { ProductSchema };

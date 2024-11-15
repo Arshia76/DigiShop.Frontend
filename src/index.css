@@ -44,14 +44,10 @@ body {
 }
 
 :root {
-  --gray: #b5bac3;
-  --dark-gray: #80808f;
-  --light-gray: #f3f6f9;
+  --gray: #d0d4db;
+  --ligth-gray:#e5e7eb;
   --slate: #464e5f;
-  --red: #ff0000;
-  --blue: #009ef7;
-  --green: #38c172;
-  --yellow: #ffe036;
+  --black:#1a1a1d;
 }
 
 /* agGrid */

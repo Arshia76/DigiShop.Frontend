@@ -4,6 +4,7 @@
     "jsx": "react-jsx",
     "allowImportingTsExtensions": true,
     "noEmit": true,
+    "strict": true,
     "moduleResolution": "Bundler",
     "target": "es6",
     "module": "Preserve",

@@ -1,0 +1,24 @@
+.Grid_Icon svg {
+  width: 14px;
+  height: 14px;
+  font-weight: 400;
+  object-fit: cover;
+}
+
+.Grid_Icon path {
+  fill: currentColor;
+}
+
+.Admin_Sidebar_Icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.Add_Btn_Icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.Add_Btn_Icon path {
+  fill: currentColor;
+}

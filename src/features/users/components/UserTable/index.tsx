@@ -1,11 +1,11 @@
-import { Button, SvgComponent, Table } from '@/components/ui';
-import { useUsersTable } from './useUserTable';
-import { UserModal } from '../UserModal';
-import { Svg } from '@/assets';
+import { Button, SvgComponent, Table } from '@/components/ui'
+import { useUsersTable } from './useUserTable'
+import { UserModal } from '../UserModal'
+import { Svg } from '@/assets'
 
 const UserTable = () => {
   const { actions, colDefs, gridRef, isFetching, userModal, setUserModal } =
-    useUsersTable();
+    useUsersTable()
   return (
     <div className='h-[90%]'>
       <div className='flex items-center justify-between'>
@@ -33,7 +33,7 @@ const UserTable = () => {
       />
       <UserModal userModal={userModal} setUserModal={setUserModal} />
     </div>
-  );
-};
+  )
+}
 
-export { UserTable };
+export { UserTable }

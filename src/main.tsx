@@ -1,9 +1,9 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import { ReactQueryClientProvider } from '@/lib/react-query'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
+import { ReactQueryClientProvider } from '@/lib/react-query';
 
-import './index.css'
+import './index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -11,4 +11,4 @@ createRoot(document.getElementById('root')!).render(
       <App />
     </ReactQueryClientProvider>
   </StrictMode>
-)
+);

@@ -23,6 +23,20 @@ const router = createBrowserRouter([
         },
       },
       {
+        path: '/signin',
+        lazy: async () => {
+          const { SigninPage } = await import('@/pages')
+          return { Component: SigninPage }
+        },
+      },
+      {
+        path: '/signup',
+        lazy: async () => {
+          const { SignupPage } = await import('@/pages')
+          return { Component: SignupPage }
+        },
+      },
+      {
         path: 'profile',
         lazy: async () => {
           const { ProfilePage } = await import('@/pages')

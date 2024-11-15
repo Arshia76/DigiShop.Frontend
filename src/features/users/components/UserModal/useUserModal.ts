@@ -1,24 +1,33 @@
-import { useEffect } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { UserSchema, UserType } from '../../schema';
+import { useEffect } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import {
+  UserSchema,
+  UserType,
+  ChangeUserPasswordSchema,
+  ChangeUserPasswordType,
+} from '../../schema'
 import {
   useCreateUserMutation,
   useUpdateUserMutation,
-} from '../../service/query';
-import { useQueryClient } from 'react-query';
-import { UserModalProps } from '.';
+  useChangeUserPasswordMutation,
+} from '../../service/query'
+import { useQueryClient } from 'react-query'
+import { UserModalProps } from '.'
 
 export function useUserModal({ userModal, setUserModal }: UserModalProps) {
-  const { type, data } = userModal;
+  const { type, data } = userModal
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   const { mutate: createProduct, isLoading: isLoadingCreate } =
-    useCreateUserMutation();
+    useCreateUserMutation()
 
   const { mutate: updateUser, isLoading: isLoadingUpdate } =
-    useUpdateUserMutation();
+    useUpdateUserMutation()
+
+  const { mutate: changeUserPassword, isLoading: isLoadingChangePassword } =
+    useUpdateUserMutation()
 
   const {
     control,
@@ -29,7 +38,17 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
     formState: { errors },
   } = useForm<UserType>({
     resolver: zodResolver(UserSchema),
-  });
+  })
+
+  const {
+    control: passwordControl,
+    handleSubmit: handleChangePassword,
+    setError: setChangePasswordError,
+    clearErrors: clearChangePasswordErrors,
+    formState: { errors: passwordErrors },
+  } = useForm<ChangeUserPasswordType>({
+    resolver: zodResolver(ChangeUserPasswordSchema),
+  })
 
   const onSubmit: SubmitHandler<UserType> = (values) => {
     if (type === 'edit') {
@@ -37,63 +56,89 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
         { id: data.id, ...values },
         {
           onSuccess() {
-            queryClient.invalidateQueries('users');
+            queryClient.invalidateQueries('users')
 
             setUserModal({
               isOpen: false,
               data: null,
               type,
-            });
+            })
           },
           onError(error: any) {
-            setError('root', { message: error.response.data?.message });
+            setError('root', { message: error.response.data?.message })
           },
         }
-      );
+      )
     } else {
       createProduct(values, {
         onSuccess() {
-          queryClient.invalidateQueries('users');
+          queryClient.invalidateQueries('users')
 
           setUserModal({
             isOpen: false,
             data: null,
             type,
-          });
+          })
         },
         onError(error: any) {
-          setError('root', { message: error.response.data?.message });
+          setError('root', { message: error.response.data?.message })
         },
-      });
+      })
     }
-  };
+  }
+
+  const onChangePassword: SubmitHandler<ChangeUserPasswordType> = (values) => {
+    changeUserPassword(
+      { id: data.id, ...values },
+      {
+        onSuccess() {
+          setUserModal({
+            isOpen: false,
+            data: null,
+            type,
+          })
+        },
+        onError(error: any) {
+          setChangePasswordError('root', {
+            message: error.response.data?.message,
+          })
+        },
+      }
+    )
+  }
 
   useEffect(() => {
     if (data && type === 'edit') {
-      setValue('firstName', data?.firstName);
-      setValue('lastName', data?.lastName);
-      setValue('phoneNumber', data?.phoneNumber);
-      setValue('password', data?.password);
-      setValue('password', data?.password);
+      setValue('firstName', data?.firstName)
+      setValue('lastName', data?.lastName)
+      setValue('phoneNumber', data?.phoneNumber)
+      setValue('password', data?.password)
+      setValue('password', data?.password)
     } else {
-      setValue('firstName', '');
-      setValue('lastName', '');
-      setValue('phoneNumber', '');
-      setValue('password', '');
-      setValue('password', '');
+      setValue('firstName', '')
+      setValue('lastName', '')
+      setValue('phoneNumber', '')
+      setValue('password', '')
+      setValue('password', '')
     }
-  }, [data, setValue, type]);
+  }, [data, setValue, type])
 
   useEffect(() => {
-    clearErrors();
-  }, [type, clearErrors]);
+    clearErrors()
+    clearChangePasswordErrors()
+  }, [type, clearErrors, clearChangePasswordErrors])
 
-  const isLoading = isLoadingCreate || isLoadingUpdate;
+  const isLoading =
+    isLoadingCreate || isLoadingUpdate || isLoadingChangePassword
 
   return {
     control,
     errors,
     isLoading,
     handleSubmit: handleSubmit(onSubmit),
-  };
+
+    passwordControl,
+    passwordErrors,
+    handleChangePassword: handleChangePassword(onChangePassword),
+  }
 }

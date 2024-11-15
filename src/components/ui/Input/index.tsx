@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
-import { Control, useController } from 'react-hook-form';
-import { inputVariants, inputContainerVariants } from './variants';
+import * as React from 'react'
+import { VariantProps } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
+import { Control, useController } from 'react-hook-form'
+import { inputVariants, inputContainerVariants } from './variants'
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputVariants> {
-  startIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
-  error?: string;
-  label?: string;
-  containerClassName?: string;
-  mainContainerClassName?: string;
-  labelClassName?: string;
-  errorClassName?: string;
-  control?: Control<any>;
+  startIcon?: React.ReactNode
+  endIcon?: React.ReactNode
+  error?: string
+  label?: string
+  containerClassName?: string
+  mainContainerClassName?: string
+  labelClassName?: string
+  errorClassName?: string
+  control?: Control<any>
 }
 
 const Input = ({
@@ -32,15 +32,9 @@ const Input = ({
   control,
   ...props
 }: InputProps) => {
-  const { field } = useController({ name: name ?? '', control });
+  const { field } = useController({ name: name ?? '', control })
   return (
-    <div
-      className={cn(
-        `flex flex-col relative border-2 border-transparent w-full focus-within:border-2 
-        focus-within:border-custom-slate rounded-lg`,
-        mainContainerClassName
-      )}
-    >
+    <div className={cn(`flex flex-col relative`, mainContainerClassName)}>
       <div
         className={cn(
           inputContainerVariants({
@@ -89,9 +83,9 @@ const Input = ({
         </span>
       )}
     </div>
-  );
-};
+  )
+}
 
-Input.displayName = 'Input';
+Input.displayName = 'Input'
 
-export { Input };
+export { Input }

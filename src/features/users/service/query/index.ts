@@ -1,6 +1,13 @@
-import { useMutation, useQuery } from 'react-query';
-import { createUser, deleteUser, getUser, getUsers, updateUser } from '../api';
-import { IQueryParams } from '@/lib/interface';
+import { useMutation, useQuery } from 'react-query'
+import {
+  changeUserPassword,
+  createUser,
+  deleteUser,
+  getUser,
+  getUsers,
+  updateUser,
+} from '../api'
+import { IQueryParams } from '@/lib/interface'
 
 export function useGetUsersQuery({ onSuccess, onError }: IQueryParams) {
   return useQuery({
@@ -8,7 +15,7 @@ export function useGetUsersQuery({ onSuccess, onError }: IQueryParams) {
     queryKey: 'users',
     onSuccess,
     onError,
-  });
+  })
 }
 
 export function useGetUserQuery({ data, onSuccess, onError }: IQueryParams) {
@@ -17,23 +24,29 @@ export function useGetUserQuery({ data, onSuccess, onError }: IQueryParams) {
     queryKey: ['user', data],
     onSuccess,
     onError,
-  });
+  })
 }
 
 export function useCreateUserMutation() {
   return useMutation({
     mutationFn: createUser,
-  });
+  })
 }
 
 export function useUpdateUserMutation() {
   return useMutation({
     mutationFn: updateUser,
-  });
+  })
+}
+
+export function useChangeUserPasswordMutation() {
+  return useMutation({
+    mutationFn: changeUserPassword,
+  })
 }
 
 export function useDeleteUserMutation() {
   return useMutation({
     mutationFn: deleteUser,
-  });
+  })
 }

@@ -1,22 +1,22 @@
-import * as React from 'react';
-import ReactSelect from 'react-select';
-import { Control, NoOptionsMessage } from './components';
-import { cn } from '@/lib/utils';
-import { Control as ControlType, useController } from 'react-hook-form';
+import * as React from 'react'
+import ReactSelect from 'react-select'
+import { Control, NoOptionsMessage } from './components'
+import { cn } from '@/lib/utils'
+import { Control as ControlType, useController } from 'react-hook-form'
 
-import { customStyles } from './styles';
+import { customStyles } from './styles'
 
 export interface SelectProps
   extends React.ComponentPropsWithoutRef<typeof ReactSelect> {
-  icon?: React.ReactNode;
-  topSeacrh?: boolean;
+  icon?: React.ReactNode
+  topSeacrh?: boolean
 
-  error?: string;
-  errorClassName?: string;
-  labelClassName?: string;
-  label?: string;
-  control?: ControlType<any>;
-  onChange?: (newData: any) => void;
+  error?: string
+  errorClassName?: string
+  labelClassName?: string
+  label?: string
+  control?: ControlType<any>
+  onChange?: (newData: any) => void
 }
 
 const Select = ({
@@ -32,15 +32,13 @@ const Select = ({
   onChange,
   ...props
 }: SelectProps) => {
-  const { field } = useController({ name: name ?? '', control });
-  const [focus, setFocus] = React.useState(false);
+  const { field } = useController({ name: name ?? '', control })
+  const [focus, setFocus] = React.useState(false)
 
   return (
     <div
       className={cn(
-        `flex flex-col w-full !leading-10 relative font-normal
-            focus-within:border-custom-slate rounded-lg border-2
-            border-transparent`,
+        `flex flex-col w-full !leading-10 relative font-normal`,
         className
       )}
     >
@@ -48,7 +46,7 @@ const Select = ({
         <label
           className={cn(
             `absolute duration-300 z-10 pointer-events-none 
-                transition-all text-custom-dark-gray ease-in-out
+                transition-all text-custom-slate ease-in-out
                 top-0 start-2 !leading-10 text-sm font-medium
                  ${
                    field.value || props.value || focus
@@ -78,7 +76,7 @@ const Select = ({
         {...field}
         value={props.value || field.value}
         onChange={(newData) => {
-          onChange ? onChange(newData) : field.onChange(newData);
+          onChange ? onChange(newData) : field.onChange(newData)
         }}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
@@ -94,9 +92,9 @@ const Select = ({
         </span>
       )}
     </div>
-  );
-};
+  )
+}
 
-Select.displayName = 'Select';
+Select.displayName = 'Select'
 
-export { Select };
+export { Select }

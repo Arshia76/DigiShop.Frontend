@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { VariantProps } from 'class-variance-authority';
-import { Control, useController } from 'react-hook-form';
-import { cn } from '@/lib/utils';
-import { textareaVariants, textareaContainerVariants } from './variants';
+import * as React from 'react'
+import { VariantProps } from 'class-variance-authority'
+import { Control, useController } from 'react-hook-form'
+import { cn } from '@/lib/utils'
+import { textareaVariants, textareaContainerVariants } from './variants'
 
 export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     VariantProps<typeof textareaVariants> {
-  startIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
-  error?: string;
-  label?: string;
-  containerClassName?: string;
-  mainContainerClassName?: string;
-  labelClassName?: string;
-  errorClassName?: string;
-  control?: Control<any>;
+  startIcon?: React.ReactNode
+  endIcon?: React.ReactNode
+  error?: string
+  label?: string
+  containerClassName?: string
+  mainContainerClassName?: string
+  labelClassName?: string
+  errorClassName?: string
+  control?: Control<any>
 }
 
 const Textarea = ({
@@ -32,14 +32,9 @@ const Textarea = ({
   control,
   ...props
 }: TextareaProps) => {
-  const { field } = useController({ name: name ?? '', control });
+  const { field } = useController({ name: name ?? '', control })
   return (
-    <div
-      className={cn(
-        `flex flex-col items-start border-2 border-transparent focus-within:border-custom-slate rounded-lg`,
-        mainContainerClassName
-      )}
-    >
+    <div className={cn(`flex flex-col items-start`, mainContainerClassName)}>
       <div
         className={cn(
           textareaContainerVariants({
@@ -88,9 +83,9 @@ const Textarea = ({
         </span>
       )}
     </div>
-  );
-};
+  )
+}
 
-Textarea.displayName = 'Textarea';
+Textarea.displayName = 'Textarea'
 
-export { Textarea };
+export { Textarea }

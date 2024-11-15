@@ -11,18 +11,18 @@ const customStyles = {
     padding: '0',
     backgroundColor: 'var(--light-gray)',
     boxShadow: 'none',
-    border: 'none',
+    border: '2px solid transparent !important',
     borderRadius: '7px',
     fontWeight: 500,
 
-    ':hover': {
-      border: 'none',
-      ouline: 'none',
-    },
+    // ':hover': {
+    //   border: 'none',
+    //   ouline: 'none',
+    // },
 
-    ':focus': {
-      border: 'none',
-      ouline: 'none',
+    ':focus-within': {
+      border: '2px solid var(--slate) !important',
+      // ouline: '4px solid var(--slate) !important',
     },
   }),
   valueContainer: (provided: any) => ({
@@ -72,8 +72,8 @@ const customStyles = {
   }),
   placeholder: (provided: any) => ({
     ...provided,
-    color: 'black',
+    color: 'var(--slate) !important',
   }),
-};
+}
 
-export { customStyles };
+export { customStyles }

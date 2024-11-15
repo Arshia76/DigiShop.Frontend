@@ -1,18 +1,26 @@
-import { Modal, Input, Button } from '@/components/ui';
-import { useUserModal } from './useUserModal';
-import { IModal } from '@/lib/interface';
-import { Dispatch, SetStateAction } from 'react';
+import { Modal, Input, Button } from '@/components/ui'
+import { useUserModal } from './useUserModal'
+import { IModal } from '@/lib/interface'
+import { Dispatch, SetStateAction } from 'react'
 
 export interface UserModalProps {
-  userModal: IModal;
-  setUserModal: Dispatch<SetStateAction<IModal>>;
+  userModal: IModal
+  setUserModal: Dispatch<SetStateAction<IModal>>
 }
 
 const UserModal = ({ userModal, setUserModal }: UserModalProps) => {
-  const { control, errors, handleSubmit, isLoading } = useUserModal({
+  const {
+    control,
+    errors,
+    handleSubmit,
+    isLoading,
+    handleChangePassword,
+    passwordControl,
+    passwordErrors,
+  } = useUserModal({
     userModal,
     setUserModal,
-  });
+  })
   return (
     <Modal width='max-w-2xl' isOpen={userModal.isOpen}>
       <Modal.Header>
@@ -23,7 +31,7 @@ const UserModal = ({ userModal, setUserModal }: UserModalProps) => {
             setUserModal({
               data: null,
               isOpen: false,
-              type: 'add',
+              type: userModal.type,
             })
           }
         >
@@ -31,39 +39,68 @@ const UserModal = ({ userModal, setUserModal }: UserModalProps) => {
         </span>
       </Modal.Header>
       <Modal.Body>
-        <div className='flex flex-wrap *:flex-[1_1_250px] gap-2 p-4'>
-          <Input
-            label='نام'
-            control={control}
-            error={errors.firstName?.message}
-            name='firstName'
-          />
-          <Input
-            label='نام خانوادگی'
-            control={control}
-            error={errors.lastName?.message}
-            name='lastName'
-          />
-          <Input
-            label='شماره موبایل'
-            inputMode='numeric'
-            control={control}
-            error={errors.phoneNumber?.message}
-            name='phoneNumber'
-          />
-          <Input
-            label='نام کاربری'
-            control={control}
-            error={errors.username?.message}
-            name='username'
-          />
-          <Input
-            label='رمز عبور'
-            type='password'
-            control={control}
-            error={errors.password?.message}
-            name='password'
-          />
+        <div>
+          <div className='flex flex-wrap *:flex-[1_1_250px] gap-2 p-4'>
+            <Input
+              label='نام'
+              control={control}
+              error={errors.firstName?.message}
+              name='firstName'
+            />
+            <Input
+              label='نام خانوادگی'
+              control={control}
+              error={errors.lastName?.message}
+              name='lastName'
+            />
+            <Input
+              label='شماره موبایل'
+              inputMode='numeric'
+              control={control}
+              error={errors.phoneNumber?.message}
+              name='phoneNumber'
+            />
+            {userModal.type === 'add' && (
+              <>
+                <Input
+                  label='نام کاربری'
+                  control={control}
+                  error={errors.username?.message}
+                  name='username'
+                />
+                <Input
+                  label='رمز عبور'
+                  type='password'
+                  control={control}
+                  error={errors.password?.message}
+                  name='password'
+                />
+              </>
+            )}
+          </div>
+          {userModal.type === 'edit' && (
+            <>
+              <hr className='w-full text-custom-gray my-2 border-t-2' />
+              <h4 className='text-md ps-4'>تغییر رمز</h4>
+              <div className='flex flex-wrap *:flex-[1_1_250px] gap-2 p-4'>
+                <Input
+                  label='رمز عبور قبلی'
+                  type='password'
+                  control={passwordControl}
+                  error={passwordErrors.oldPassword?.message}
+                  name='oldPassword'
+                />
+
+                <Input
+                  label='رمز عبور جدید'
+                  type='password'
+                  control={passwordControl}
+                  error={passwordErrors.newPassword?.message}
+                  name='newPassword'
+                />
+              </div>
+            </>
+          )}
         </div>
       </Modal.Body>
       <Modal.Footer>
@@ -76,6 +113,17 @@ const UserModal = ({ userModal, setUserModal }: UserModalProps) => {
         >
           اعمال
         </Button>
+        {userModal.type === 'edit' && (
+          <Button
+            colour='primary'
+            className='w-20 me-2'
+            loaderOnly
+            loading={isLoading}
+            onClick={handleChangePassword}
+          >
+            تغییر رمز
+          </Button>
+        )}
         <Button
           colour='secondary'
           className='w-20'
@@ -83,7 +131,7 @@ const UserModal = ({ userModal, setUserModal }: UserModalProps) => {
             setUserModal({
               data: null,
               isOpen: false,
-              type: 'add',
+              type: userModal.type,
             })
           }
         >
@@ -91,7 +139,7 @@ const UserModal = ({ userModal, setUserModal }: UserModalProps) => {
         </Button>
       </Modal.Footer>
     </Modal>
-  );
-};
+  )
+}
 
-export { UserModal };
+export { UserModal }

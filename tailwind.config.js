@@ -14,6 +14,9 @@ export default {
           'light-gray': 'var(--light-gray)',
         },
       },
+      backgroundImage: {
+        hero: "url('/src/assets/Image/hero.jpg')",
+      },
     },
   },
   plugins: [],

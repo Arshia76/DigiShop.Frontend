@@ -5,7 +5,7 @@ const UserLayout = () => {
   return (
     <>
       <Navbar />
-      <section className="p-4">
+      <section>
         <Outlet />
       </section>
     </>

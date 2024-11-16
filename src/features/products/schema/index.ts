@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 const ProductSchema = z.object({
   title: z
@@ -30,8 +30,17 @@ const ProductSchema = z.object({
       required_error: 'تصویر محصول را انتخاب کنید',
     })
     .min(1, 'تصویر محصول را انتخاب کنید'),
-});
+})
 
-export type ProductType = z.infer<typeof ProductSchema>;
+const ProductFilterSchema = z.object({
+  sortBy: z.string().optional(),
 
-export { ProductSchema };
+  category: z.string().optional(),
+
+  query: z.string().optional(),
+})
+
+export type ProductType = z.infer<typeof ProductSchema>
+export type ProductFilterType = z.infer<typeof ProductFilterSchema>
+
+export { ProductSchema, ProductFilterSchema }

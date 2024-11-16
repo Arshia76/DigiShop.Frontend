@@ -7,15 +7,7 @@ import { CategoriesPage } from './admin/Categories'
 import { UsersPage } from './admin/Users'
 import { SignupPage } from './Auth/Signup'
 import { SigninPage } from './Auth/Signin'
+import { ShopPage } from './Shop'
+import { ProductPage } from './Product'
 
-export {
-  HomePage,
-  AdminMainPage,
-  SigninPage,
-  SignupPage,
-  CartPage,
-  CategoriesPage,
-  ProductsPage,
-  ProfilePage,
-  UsersPage,
-}
+export { HomePage, AdminMainPage, SigninPage, SignupPage, CartPage, CategoriesPage, ProductsPage, ProductPage, ProfilePage, UsersPage, ShopPage }

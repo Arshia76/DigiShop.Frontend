@@ -1,17 +1,8 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import {
-  UserSchema,
-  UserType,
-  ChangeUserPasswordSchema,
-  ChangeUserPasswordType,
-} from '../../schema'
-import {
-  useCreateUserMutation,
-  useUpdateUserMutation,
-  useChangeUserPasswordMutation,
-} from '../../service/query'
+import { UserSchema, UserType, ChangeUserPasswordSchema, ChangeUserPasswordType } from '../../schema'
+import { useCreateUserMutation, useUpdateUserMutation, useChangeUserPasswordMutation } from '../../service/query'
 import { useQueryClient } from 'react-query'
 import { UserModalProps } from '.'
 
@@ -20,14 +11,11 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
 
   const queryClient = useQueryClient()
 
-  const { mutate: createProduct, isLoading: isLoadingCreate } =
-    useCreateUserMutation()
+  const { mutate: createProduct, isLoading: isLoadingCreate } = useCreateUserMutation()
 
-  const { mutate: updateUser, isLoading: isLoadingUpdate } =
-    useUpdateUserMutation()
+  const { mutate: updateUser, isLoading: isLoadingUpdate } = useUpdateUserMutation()
 
-  const { mutate: changeUserPassword, isLoading: isLoadingChangePassword } =
-    useUpdateUserMutation()
+  const { mutate: changeUserPassword, isLoading: isLoadingChangePassword } = useChangeUserPasswordMutation()
 
   const {
     control,
@@ -128,8 +116,7 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
     clearChangePasswordErrors()
   }, [type, clearErrors, clearChangePasswordErrors])
 
-  const isLoading =
-    isLoadingCreate || isLoadingUpdate || isLoadingChangePassword
+  const isLoading = isLoadingCreate || isLoadingUpdate || isLoadingChangePassword
 
   return {
     control,

@@ -22,3 +22,13 @@
 .Add_Btn_Icon path {
   fill: currentColor;
 }
+
+.Cart_Remove_Icon svg {
+  width: 23px;
+  height: 23px;
+  cursor: pointer;
+}
+
+.Cart_Remove_Icon path {
+  fill: red;
+}

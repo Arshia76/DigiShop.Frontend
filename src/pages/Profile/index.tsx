@@ -1,5 +1,11 @@
-const ProfilePage = () => {
-  return <div>ProfilePage</div>;
-};
+import { UserProfile } from '@/features/users/components'
 
-export { ProfilePage };
+const ProfilePage = () => {
+  return (
+    <section>
+      <UserProfile />
+    </section>
+  )
+}
+
+export { ProfilePage }

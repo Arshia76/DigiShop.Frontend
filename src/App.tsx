@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: 'detail/:id',
+        path: 'product/:id',
         lazy: async () => {
           const { ProductPage } = await import('@/pages')
           return { Component: ProductPage }
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: 'profile',
+        path: 'profile/:id',
         lazy: async () => {
           const { ProfilePage } = await import('@/pages')
           return { Component: ProfilePage }

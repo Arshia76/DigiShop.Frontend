@@ -45,9 +45,18 @@ body {
 
 :root {
   --gray: #d0d4db;
-  --light-gray:#e5e7eb;
+  --light-gray: #e5e7eb;
   --slate: #464e5f;
-  --black:#1a1a1d;
+  --black: #1a1a1d;
+}
+
+::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px !important;
+  background: var(--gray) !important;
 }
 
 /* agGrid */

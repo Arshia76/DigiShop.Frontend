@@ -12,6 +12,10 @@ export default {
           slate: 'var(--slate)',
           black: 'var(--black)',
           'light-gray': 'var(--light-gray)',
+          blue: 'var(--blue)',
+          green: 'var(--green)',
+          yellow: 'var(--yellow)',
+          red: 'var(--red)',
         },
       },
       backgroundImage: {

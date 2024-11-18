@@ -48,6 +48,10 @@ body {
   --light-gray: #e5e7eb;
   --slate: #464e5f;
   --black: #1a1a1d;
+  --red: #ff0000;
+  --blue: #009ef7;
+  --green: #38c172;
+  --yellow: #ffe036;
 }
 
 ::-webkit-scrollbar {

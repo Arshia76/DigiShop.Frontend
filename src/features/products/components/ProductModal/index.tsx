@@ -1,96 +1,78 @@
-import { Modal, Input, Button, Select, Textarea } from '@/components/ui';
-import { useProductModal } from './useProductModal';
-import { IModal } from '@/lib/interface';
-import { Dispatch, SetStateAction } from 'react';
+import { Modal, Input, Button, Select, Textarea } from '@/components/ui'
+import { useProductModal } from './useProductModal'
+import { IModal } from '@/lib/interface'
+import { Dispatch, SetStateAction } from 'react'
+import { ProductImage } from '../ProductImage'
+import { useProductImage } from '../ProductImage/useProductImage'
 
 export interface ProductModalProps {
-  productModal: IModal;
-  setProductModal: Dispatch<SetStateAction<IModal>>;
+  productModal: IModal
+  setProductModal: Dispatch<SetStateAction<IModal>>
 }
 
 const ProductModal = ({ productModal, setProductModal }: ProductModalProps) => {
   const { control, errors, handleSubmit, isLoading } = useProductModal({
     productModal,
     setProductModal,
-  });
+  })
+
+  const { openFilePicker, plainFiles, clear } = useProductImage()
   return (
-    <Modal width='max-w-2xl' isOpen={productModal.isOpen}>
+    <Modal width="max-w-2xl" isOpen={productModal.isOpen}>
       <Modal.Header>
         <span>محصول</span>
         <span
           style={{ cursor: 'pointer' }}
-          onClick={() =>
+          onClick={() => {
             setProductModal({
               data: null,
               isOpen: false,
               type: 'add',
             })
-          }
+            clear()
+          }}
         >
           بستن
         </span>
       </Modal.Header>
       <Modal.Body>
-        <div className='flex flex-wrap *:flex-[1_1_250px] gap-2 p-4'>
-          <Input
-            label='عنوان'
-            control={control}
-            error={errors.title?.message}
-            name='title'
-          />
-          <Input
-            label='قیمت'
-            control={control}
-            error={errors.price?.message}
-            name='price'
-          />
-          <Select
-            label='دسته بندی'
-            control={control}
-            error={errors.category?.message}
-            name='category'
-          />
-          <Input
-            label='تصویر'
-            control={control}
-            error={errors.image?.message}
-            name='image'
-          />
+        <div className="flex flex-wrap *:flex-[1_1_250px] gap-2 p-4">
+          <Input label="عنوان" control={control} error={errors.title?.message} name="title" />
+          <Input label="قیمت" control={control} error={errors.price?.message} name="price" />
+          <Select label="دسته بندی" control={control} error={errors.category?.message} name="category" />
+          <Input label="تعداد" control={control} error={errors.quantity?.message} name="quantity" />
           <Textarea
-            label='توضیحات'
+            mainContainerClassName="!flex-none !w-full"
+            label="توضیحات"
             control={control}
             error={errors.description?.message}
-            name='description'
+            name="description"
             rows={5}
           />
+          <ProductImage files={plainFiles} openFilePicker={() => openFilePicker()} />
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          colour='primary'
-          className='w-20 me-2'
-          loaderOnly
-          loading={isLoading}
-          onClick={handleSubmit}
-        >
+        <Button colour="primary" className="w-20 me-2" loaderOnly loading={isLoading} onClick={handleSubmit}>
           اعمال
         </Button>
         <Button
-          colour='secondary'
-          className='w-20'
-          onClick={() =>
+          colour="secondary"
+          className="w-20"
+          onClick={() => {
             setProductModal({
               data: null,
               isOpen: false,
               type: 'add',
             })
-          }
+            clear()
+          }}
         >
           بازگشت
         </Button>
       </Modal.Footer>
     </Modal>
-  );
-};
+  )
+}
 
-export { ProductModal };
+export { ProductModal }

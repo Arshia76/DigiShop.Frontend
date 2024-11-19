@@ -13,23 +13,28 @@ const ProductSchema = z.object({
     })
     .min(1, 'توضیحات محصول را وارد کنید'),
 
-  price: z
-    .string({
+  price: z.coerce
+    .number({
       required_error: 'قیمت محصول را وارد کنید',
     })
-    .min(1, 'قیمت محصول را وارد کنید'),
+    .gt(0, 'قیمت محصول را وارد کنید'),
 
-  quantity: z
+  quantity: z.coerce
     .number({
       required_error: 'تعداد محصول را وارد کنید',
     })
     .gte(1, 'تعداد محصول را وارد کنید'),
 
-  category: z
-    .string({
-      required_error: 'دسته بندی محصول را مشخص کنید',
-    })
-    .min(1, 'دسته بندی محصول را مشخص کنید'),
+  category: z.object(
+    {
+      label: z.string(),
+      value: z.string(),
+    },
+    {
+      required_error: 'دسته بندی محصول را انتخاب کنید',
+      invalid_type_error: 'دسته بندی محصول را انتخاب کنید',
+    }
+  ),
 
   image: z
     .string({

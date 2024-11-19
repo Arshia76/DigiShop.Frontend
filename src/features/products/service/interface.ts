@@ -1,6 +1,6 @@
 export interface ICreateProductData {
   title: string
-  price: string
+  price: number
   description: string
   category: string
   quantity: number

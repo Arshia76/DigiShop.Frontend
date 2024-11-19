@@ -8,6 +8,6 @@ export interface IModal {
 
 export interface IQueryParams {
   data?: any
-  onSuccess?: ((data: AxiosResponse<any, any>) => void) | undefined
+  onSuccess?: ((data: any) => void) | undefined
   onError?: ((err: unknown) => void) | undefined
 }

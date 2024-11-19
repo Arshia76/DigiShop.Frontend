@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import ProtectedRoute from './features/auth/components/ProtectedRoute'
 
 const router = createBrowserRouter([
   {
@@ -7,6 +8,7 @@ const router = createBrowserRouter([
       const { UserLayout } = await import('@/layout')
       return { Component: UserLayout }
     },
+
     children: [
       {
         index: true,
@@ -54,7 +56,13 @@ const router = createBrowserRouter([
         path: 'profile/:id',
         lazy: async () => {
           const { ProfilePage } = await import('@/pages')
-          return { Component: ProfilePage }
+          return {
+            element: (
+              <ProtectedRoute roles={['User']}>
+                <ProfilePage />
+              </ProtectedRoute>
+            ),
+          }
         },
       },
     ],
@@ -71,28 +79,52 @@ const router = createBrowserRouter([
         index: true,
         lazy: async () => {
           const { AdminMainPage } = await import('@/pages')
-          return { Component: AdminMainPage }
+          return {
+            element: (
+              <ProtectedRoute roles={['Admin']}>
+                <AdminMainPage />
+              </ProtectedRoute>
+            ),
+          }
         },
       },
       {
         path: 'products',
         lazy: async () => {
           const { ProductsPage } = await import('@/pages')
-          return { Component: ProductsPage }
+          return {
+            element: (
+              <ProtectedRoute roles={['Admin']}>
+                <ProductsPage />
+              </ProtectedRoute>
+            ),
+          }
         },
       },
       {
         path: 'categories',
         lazy: async () => {
           const { CategoriesPage } = await import('@/pages')
-          return { Component: CategoriesPage }
+          return {
+            element: (
+              <ProtectedRoute roles={['Admin']}>
+                <CategoriesPage />
+              </ProtectedRoute>
+            ),
+          }
         },
       },
       {
         path: 'users',
         lazy: async () => {
           const { UsersPage } = await import('@/pages')
-          return { Component: UsersPage }
+          return {
+            element: (
+              <ProtectedRoute roles={['Admin']}>
+                <UsersPage />
+              </ProtectedRoute>
+            ),
+          }
         },
       },
     ],

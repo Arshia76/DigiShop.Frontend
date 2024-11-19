@@ -1,33 +1,27 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { SigninSchema, SigninType } from '../../schema'
-import { useSigninMutation } from '../../service/query'
+import { useAuth } from '../../context'
 
 export function useSigninForm() {
-  const { mutate: signin, isLoading } = useSigninMutation()
+  const { signin, isLoadingSignin } = useAuth()
 
   const {
     control,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<SigninType>({
     resolver: zodResolver(SigninSchema),
   })
 
   const onSubmit: SubmitHandler<SigninType> = (values) => {
-    signin(values, {
-      onSuccess() {},
-      onError(error: any) {
-        setError('root', { message: error.response.data?.message })
-      },
-    })
+    signin(values)
   }
 
   return {
     control,
     errors,
-    isLoading,
+    isLoading: isLoadingSignin,
     handleSubmit: handleSubmit(onSubmit),
   }
 }

@@ -11,10 +11,12 @@ export interface ProductModalProps {
 }
 
 const ProductModal = ({ productModal, setProductModal }: ProductModalProps) => {
-  const { control, errors, handleSubmit, isLoading } = useProductModal({
+  const { control, errors, handleSubmit, isLoading, categories } = useProductModal({
     productModal,
     setProductModal,
   })
+
+  const options = categories?.map((category) => ({ label: category.title, value: category._id }))
 
   const { openFilePicker, plainFiles, clear } = useProductImage()
   return (
@@ -38,9 +40,9 @@ const ProductModal = ({ productModal, setProductModal }: ProductModalProps) => {
       <Modal.Body>
         <div className="flex flex-wrap *:flex-[1_1_250px] gap-2 p-4">
           <Input label="عنوان" control={control} error={errors.title?.message} name="title" />
-          <Input label="قیمت" control={control} error={errors.price?.message} name="price" />
-          <Select label="دسته بندی" control={control} error={errors.category?.message} name="category" />
-          <Input label="تعداد" control={control} error={errors.quantity?.message} name="quantity" />
+          <Input label="قیمت" type="number" control={control} inputMode="numeric" error={errors.price?.message} name="price" />
+          <Select label="دسته بندی" options={options} control={control} error={errors.category?.message} name="category" />
+          <Input label="تعداد" type="number" control={control} inputMode="numeric" error={errors.quantity?.message} name="quantity" />
           <Textarea
             mainContainerClassName="!flex-none !w-full"
             label="توضیحات"

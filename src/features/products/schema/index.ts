@@ -1,5 +1,8 @@
 import { z } from 'zod'
 
+const MAX_FILE_SIZE = 1024 * 1024
+const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png']
+
 const ProductSchema = z.object({
   title: z
     .string({
@@ -37,10 +40,17 @@ const ProductSchema = z.object({
   ),
 
   image: z
-    .string({
-      required_error: 'تصویر محصول را انتخاب کنید',
+    .any()
+    .refine((files) => files?.length > 0, {
+      message: 'تصویر محصول را انتخاب کنید',
     })
-    .min(1, 'تصویر محصول را انتخاب کنید'),
+    .refine((files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type), {
+      message: 'نوع عکس اشتباه است',
+    })
+
+    .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, {
+      message: `سایز تصویر باید کمتر از 1 مگابایت باشد`,
+    }),
 })
 
 const ProductFilterSchema = z.object({

@@ -2,19 +2,27 @@ import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ProductSchema, ProductType } from '../../schema'
-import { useCreateProductMutation, useUpdateProductMutation } from '../../service/query'
+import {
+  useCreateProductMutation,
+  useUpdateProductMutation,
+} from '../../service/query'
 import { useQueryClient } from 'react-query'
 import { ProductModalProps } from '.'
 import { useGetCategoriesQuery } from '@/features/categories/service/query'
 
-export function useProductModal({ productModal, setProductModal }: ProductModalProps) {
+export function useProductModal({
+  productModal,
+  setProductModal,
+}: ProductModalProps) {
   const { type, data } = productModal
 
   const queryClient = useQueryClient()
 
-  const { mutate: createProduct, isLoading: isLoadingCreate } = useCreateProductMutation()
+  const { mutate: createProduct, isLoading: isLoadingCreate } =
+    useCreateProductMutation()
 
-  const { mutate: updateProduct, isLoading: isLoadingUpdate } = useUpdateProductMutation()
+  const { mutate: updateProduct, isLoading: isLoadingUpdate } =
+    useUpdateProductMutation()
 
   const { data: categories } = useGetCategoriesQuery({})
 
@@ -24,6 +32,7 @@ export function useProductModal({ productModal, setProductModal }: ProductModalP
     setValue,
     setError,
     clearErrors,
+    getValues,
     formState: { errors },
   } = useForm<ProductType>({
     resolver: zodResolver(ProductSchema),
@@ -31,12 +40,20 @@ export function useProductModal({ productModal, setProductModal }: ProductModalP
 
   useEffect(() => {
     console.log(errors)
+    console.log(getValues())
   }, [errors])
 
   const onSubmit: SubmitHandler<ProductType> = (values) => {
+    const form = new FormData()
+    form.append('image', values.image)
     if (type === 'edit') {
       updateProduct(
-        { id: data.id, ...values, category: values.category.value },
+        {
+          id: data.id,
+          ...values,
+          image: form,
+          category: values.category.value,
+        },
         {
           onSuccess() {
             queryClient.invalidateQueries('products')
@@ -54,7 +71,7 @@ export function useProductModal({ productModal, setProductModal }: ProductModalP
       )
     } else {
       createProduct(
-        { ...values, category: values.category.value },
+        { ...values, image: form, category: values.category.value },
         {
           onSuccess() {
             queryClient.invalidateQueries('products')

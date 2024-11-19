@@ -1,4 +1,4 @@
-import { cva } from 'class-variance-authority';
+import { cva } from 'class-variance-authority'
 
 const buttonVariants = cva(
   `flex gap-2 items-center justify-center rounded-md outline-none font-medium 
@@ -9,12 +9,12 @@ const buttonVariants = cva(
     variants: {
       colour: {
         primary:
-          'bg-custom-black text-warmGray-200 [&>.loader]:border-x-custom-black [&>.loader]:border-y-custom-black',
+          'bg-custom-black text-warmGray-200 [&>.loader]:border-x-white [&>.loader]:border-y-custom-black',
         secondary:
-          'bg-custom-gray text-custom-slate [&>.loader]:border-x-custom-gray [&>.loader]:border-y-custom-gray',
+          'bg-custom-gray text-custom-slate [&>.loader]:border-x-white [&>.loader]:border-y-custom-slate',
       },
     },
   }
-);
+)
 
-export { buttonVariants };
+export { buttonVariants }

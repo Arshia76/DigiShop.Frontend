@@ -4,7 +4,7 @@ export interface ICreateProductData {
   description: string
   category: string
   quantity: number
-  image: string
+  image: FormData
 }
 
 export interface IUpdateProductData extends Partial<ICreateProductData> {

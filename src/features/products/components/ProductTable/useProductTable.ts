@@ -1,11 +1,13 @@
 import { useRef, useState } from 'react'
+import { useQueryClient } from 'react-query'
 import { IModal } from '@/lib/interface'
 import { ColDef, ColGroupDef } from 'ag-grid-enterprise'
 import { CustomCellRendererProps } from 'ag-grid-react'
 import { GridActionItemProps } from '@/components/ui/Table/components/actions'
 import { Svg } from '@/assets'
-import { useGetProductsQuery } from '../../service/query'
+import { useDeleteProductMutation, useGetProductsQuery } from '../../service/query'
 import { ITableRef } from '@/components/ui/Table'
+import { DeleteModalProps } from '@/components/shared/DeleteModal'
 
 export function useProductTable() {
   const [productModal, setProductModal] = useState<IModal>({
@@ -15,6 +17,18 @@ export function useProductTable() {
   })
 
   const gridRef = useRef<ITableRef<any> | null>(null)
+
+  const queryClient = useQueryClient()
+
+  const [deleteModalState, setDeleteModalState] = useState<DeleteModalProps>({
+    isLoading: false,
+    isOpen: false,
+    title: 'آیا از حذف محصول مطمئن هستید؟',
+    onConfirm: () => null,
+    onClose: () => null,
+  })
+
+  const { mutate: deleteProduct } = useDeleteProductMutation()
 
   const colDefs: ColDef[] | ColGroupDef[] = [
     {
@@ -65,7 +79,32 @@ export function useProductTable() {
       icon: Svg.Trash_Icon,
       title: 'حذف',
       onClick() {
-        return null
+        setDeleteModalState((state: any) => ({
+          ...state,
+          isOpen: true,
+          onClose: () => {
+            setDeleteModalState((state: any) => ({
+              ...state,
+              isOpen: false,
+            }))
+          },
+          onConfirm: () => {
+            setDeleteModalState((state: any) => ({
+              ...state,
+              isLoading: true,
+            }))
+            deleteProduct(row.data?._id, {
+              onSuccess: () => {
+                queryClient.invalidateQueries('products')
+                setDeleteModalState((state: any) => ({
+                  ...state,
+                  isLoading: false,
+                  isOpen: false,
+                }))
+              },
+            })
+          },
+        }))
       },
     },
   ]
@@ -86,5 +125,6 @@ export function useProductTable() {
     isFetching,
     productModal,
     setProductModal,
+    deleteModalState,
   }
 }

@@ -6,7 +6,7 @@ export interface ICreateUserData {
   password: string
 }
 
-export interface IUpdateUserData extends Partial<ICreateUserData> {
+export interface IUpdateUserData extends Omit<ICreateUserData, 'username' | 'password'> {
   id: string
 }
 

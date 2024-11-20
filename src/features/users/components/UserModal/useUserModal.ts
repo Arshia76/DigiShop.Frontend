@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { UserSchema, UserType, ChangeUserPasswordSchema, ChangeUserPasswordType } from '../../schema'
+import { CreateUserSchema, CreateUserType, ChangeUserPasswordSchema, ChangeUserPasswordType, UpdateUserSchema, UpdateUserType } from '../../schema'
 import { useCreateUserMutation, useUpdateUserMutation, useChangeUserPasswordMutation } from '../../service/query'
 import { useQueryClient } from 'react-query'
 import { UserModalProps } from '.'
@@ -16,6 +16,22 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
   const { mutate: updateUser, isLoading: isLoadingUpdate } = useUpdateUserMutation()
 
   const { mutate: changeUserPassword, isLoading: isLoadingChangePassword } = useChangeUserPasswordMutation()
+
+  const UserSchema = {
+    add: CreateUserSchema,
+    edit: UpdateUserSchema,
+    delete: null,
+    // eslint-disable-next-line
+    // @ts-ignore
+  }[type]
+
+  type UserType = {
+    add: CreateUserType
+    edit: UpdateUserType
+    delete: null
+    // eslint-disable-next-line
+    // @ts-ignore
+  }[type]
 
   const {
     control,
@@ -41,7 +57,7 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
   const onSubmit: SubmitHandler<UserType> = (values) => {
     if (type === 'edit') {
       updateUser(
-        { id: data.id, ...values },
+        { id: data._id, firstName: values.firstName, lastName: values.lastName, phoneNumber: values.phoneNumber },
         {
           onSuccess() {
             queryClient.invalidateQueries('users')

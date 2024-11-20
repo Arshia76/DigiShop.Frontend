@@ -6,8 +6,7 @@ import { Control as ControlType, useController } from 'react-hook-form'
 
 import { customStyles } from './styles'
 
-export interface SelectProps
-  extends React.ComponentPropsWithoutRef<typeof ReactSelect> {
+export interface SelectProps extends React.ComponentPropsWithoutRef<typeof ReactSelect> {
   icon?: React.ReactNode
   topSeacrh?: boolean
   error?: string
@@ -18,33 +17,16 @@ export interface SelectProps
   onChange?: (newData: any) => void
 }
 
-const Select = ({
-  className,
-  isDisabled,
-  icon,
-  error,
-  errorClassName,
-  labelClassName,
-  label,
-  name,
-  control,
-  onChange,
-  ...props
-}: SelectProps) => {
+const Select = ({ className, isDisabled, icon, error, errorClassName, labelClassName, label, name, control, onChange, ...props }: SelectProps) => {
   const { field } = useController({
     name: name ?? '',
-    disabled: !!control,
+    disabled: !control,
     control,
   })
   const [focus, setFocus] = React.useState(false)
 
   return (
-    <div
-      className={cn(
-        `flex flex-col w-full !leading-10 relative font-normal`,
-        className
-      )}
-    >
+    <div className={cn(`flex flex-col w-full !leading-10 relative font-normal`, className)}>
       {label && (
         <label
           className={cn(
@@ -68,8 +50,8 @@ const Select = ({
       <ReactSelect
         // @ts-ignore
         icon={icon}
-        placeholder=''
-        menuPlacement='auto'
+        placeholder=""
+        menuPlacement="auto"
         menuPortalTarget={document.body}
         components={{ NoOptionsMessage, Control }}
         isRtl
@@ -84,16 +66,7 @@ const Select = ({
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
       />
-      {error && (
-        <span
-          className={cn(
-            `text-xs text-custom-red ps-1 mt-1 whitespace-nowrap`,
-            errorClassName
-          )}
-        >
-          {error}
-        </span>
-      )}
+      {error && <span className={cn(`text-xs text-custom-red ps-1 mt-1 whitespace-nowrap`, errorClassName)}>{error}</span>}
     </div>
   )
 }

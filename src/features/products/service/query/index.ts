@@ -11,10 +11,10 @@ export function useGetProductsQuery({ onSuccess, onError }: IQueryParams) {
   })
 }
 
-export function useGetProductQuery({ data, onSuccess, onError }: IQueryParams) {
+export function useGetProductQuery(id: string, { onSuccess, onError }: IQueryParams) {
   return useQuery({
-    queryFn: () => getProduct(data),
-    queryKey: ['product', data],
+    queryFn: () => getProduct(id),
+    queryKey: ['product', id],
     onSuccess,
     onError,
   })

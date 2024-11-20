@@ -53,8 +53,9 @@ const Table = <TData,>({ components, actions, isLoading, totalRowGenerator, pare
     if (isLoading) {
       gridRef?.current?.api?.setGridOption('rowData', [])
       gridRef?.current?.api?.setGridOption('loading', true)
+    } else {
+      gridRef?.current?.api?.setGridOption('loading', false)
     }
-    // eslint-disable-next-line
   }, [isLoading])
 
   // const autoSizeColumns = (api: GridApi<TData>) => {

@@ -3,7 +3,7 @@ import { z } from 'zod'
 const MAX_FILE_SIZE = 1024 * 1024
 const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png']
 
-const ProductSchema = z.object({
+const CreateProductSchema = z.object({
   title: z
     .string({
       required_error: 'عنوان محصول را وارد کنید',
@@ -41,17 +41,19 @@ const ProductSchema = z.object({
 
   image: z
     .any()
-    .refine((files) => files?.length > 0, {
+    .refine((file) => file.name, {
       message: 'تصویر محصول را انتخاب کنید',
     })
-    .refine((files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type), {
+    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file?.type), {
       message: 'نوع عکس اشتباه است',
     })
 
-    .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, {
+    .refine((file) => file?.size <= MAX_FILE_SIZE, {
       message: `سایز تصویر باید کمتر از 1 مگابایت باشد`,
     }),
 })
+
+const UpdateProductSchema = CreateProductSchema
 
 const ProductFilterSchema = z.object({
   sortBy: z.string().optional(),
@@ -61,7 +63,8 @@ const ProductFilterSchema = z.object({
   query: z.string().optional(),
 })
 
-export type ProductType = z.infer<typeof ProductSchema>
+export type CreateProductType = z.infer<typeof CreateProductSchema>
+export type UpdateProductType = z.infer<typeof UpdateProductSchema>
 export type ProductFilterType = z.infer<typeof ProductFilterSchema>
 
-export { ProductSchema, ProductFilterSchema }
+export { CreateProductSchema, UpdateProductSchema, ProductFilterSchema }

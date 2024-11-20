@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const UserSchema = z.object({
+const CreateUserSchema = z.object({
   firstName: z
     .string({
       required_error: 'نام کاربر را وارد کنید',
@@ -46,7 +46,10 @@ const ChangeUserPasswordSchema = z.object({
     .min(1, 'رمز عبور جدید کاربر را وارد کنید'),
 })
 
-export type UserType = z.infer<typeof UserSchema>
+const UpdateUserSchema = CreateUserSchema.omit({ username: true, password: true })
+
+export type CreateUserType = z.infer<typeof CreateUserSchema>
+export type UpdateUserType = z.infer<typeof UpdateUserSchema>
 export type ChangeUserPasswordType = z.infer<typeof ChangeUserPasswordSchema>
 
-export { UserSchema, ChangeUserPasswordSchema }
+export { CreateUserSchema, UpdateUserSchema, ChangeUserPasswordSchema }

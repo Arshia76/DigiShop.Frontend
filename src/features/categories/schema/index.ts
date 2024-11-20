@@ -1,13 +1,16 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
-const CategorySchema = z.object({
+const CreateCategorySchema = z.object({
   title: z
     .string({
       required_error: 'عنوان دسته بندی را وارد کنید',
     })
     .min(1, 'عنوان دسته بندی را وارد کنید'),
-});
+})
 
-export type CategoryType = z.infer<typeof CategorySchema>;
+const UpdateCategorySchema = CreateCategorySchema
 
-export { CategorySchema };
+export type CreateCategoryType = z.infer<typeof CreateCategorySchema>
+export type UpdateCategoryType = z.infer<typeof UpdateCategorySchema>
+
+export { CreateCategorySchema, UpdateCategorySchema }

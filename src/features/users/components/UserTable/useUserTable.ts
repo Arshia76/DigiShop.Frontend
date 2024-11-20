@@ -1,11 +1,13 @@
 import { useRef, useState } from 'react'
+import { useQueryClient } from 'react-query'
 import { IModal } from '@/lib/interface'
 import { ColDef, ColGroupDef } from 'ag-grid-enterprise'
 import { CustomCellRendererProps } from 'ag-grid-react'
 import { GridActionItemProps } from '@/components/ui/Table/components/actions'
 import { Svg } from '@/assets'
-import { useGetUsersQuery } from '../../service/query'
+import { useDeleteUserMutation, useGetUsersQuery } from '../../service/query'
 import { ITableRef } from '@/components/ui/Table'
+import { DeleteModalProps } from '@/components/shared/DeleteModal'
 
 export function useUsersTable() {
   const [userModal, setUserModal] = useState<IModal>({
@@ -15,6 +17,18 @@ export function useUsersTable() {
   })
 
   const gridRef = useRef<ITableRef<any> | null>(null)
+
+  const queryClient = useQueryClient()
+
+  const [deleteModalState, setDeleteModalState] = useState<DeleteModalProps>({
+    isLoading: false,
+    isOpen: false,
+    title: 'آیا از حذف کاربر مطمئن هستید؟',
+    onConfirm: () => null,
+    onClose: () => null,
+  })
+
+  const { mutate: deleteUser } = useDeleteUserMutation()
 
   const colDefs: ColDef[] | ColGroupDef[] = [
     {
@@ -65,7 +79,32 @@ export function useUsersTable() {
       icon: Svg.Trash_Icon,
       title: 'حذف',
       onClick() {
-        return null
+        setDeleteModalState((state: any) => ({
+          ...state,
+          isOpen: true,
+          onClose: () => {
+            setDeleteModalState((state: any) => ({
+              ...state,
+              isOpen: false,
+            }))
+          },
+          onConfirm: () => {
+            setDeleteModalState((state: any) => ({
+              ...state,
+              isLoading: true,
+            }))
+            deleteUser(row.data?._id, {
+              onSuccess: () => {
+                queryClient.invalidateQueries('users')
+                setDeleteModalState((state: any) => ({
+                  ...state,
+                  isLoading: false,
+                  isOpen: false,
+                }))
+              },
+            })
+          },
+        }))
       },
     },
   ]
@@ -79,5 +118,5 @@ export function useUsersTable() {
     },
   })
 
-  return { colDefs, gridRef, actions, isFetching, userModal, setUserModal }
+  return { colDefs, gridRef, actions, isFetching, userModal, deleteModalState, setUserModal }
 }

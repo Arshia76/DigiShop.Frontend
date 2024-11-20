@@ -1,5 +1,3 @@
-import { AxiosResponse } from 'axios'
-
 export interface IModal {
   type?: 'add' | 'edit' | 'delete'
   isOpen: boolean

@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { UserSchema, UserType, ChangeUserPasswordSchema, ChangeUserPasswordType } from '@/features/users/schema'
+import { UpdateUserSchema, UpdateUserType, ChangeUserPasswordSchema, ChangeUserPasswordType } from '@/features/users/schema'
 import { useChangeUserPasswordMutation, useUpdateUserMutation } from '@/features/users/service/query'
 
 export function useUserInfo() {
@@ -13,8 +13,8 @@ export function useUserInfo() {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<UserType>({
-    resolver: zodResolver(UserSchema),
+  } = useForm<UpdateUserType>({
+    resolver: zodResolver(UpdateUserSchema),
   })
 
   const {
@@ -26,7 +26,7 @@ export function useUserInfo() {
     resolver: zodResolver(ChangeUserPasswordSchema),
   })
 
-  const onSubmit: SubmitHandler<UserType> = (values) => {
+  const onSubmit: SubmitHandler<UpdateUserType> = (values) => {
     updateUser(
       { id: '1', ...values },
       {

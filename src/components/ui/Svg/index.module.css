@@ -32,3 +32,10 @@
 .Cart_Remove_Icon path {
   fill: red;
 }
+
+.Navbar_Icon svg {
+  width: 28px;
+  height: 28px;
+  font-weight: 900;
+  cursor: pointer;
+}

@@ -1,6 +1,9 @@
 import { Button } from '@/components/ui'
+import { Routes } from '@/lib/routes'
+import { useNavigate } from 'react-router-dom'
 
 const HomePage = () => {
+  const navigate = useNavigate()
   return (
     <main
       className="h-[calc(100vh-72px)] w-full bg-hero bg-no-repeat bg-cover bg-center relative
@@ -13,7 +16,7 @@ const HomePage = () => {
       >
         <h1 className="text-5xl font-bold text-lightBlue-300">به دیجی شاپ خوش آمدید</h1>
         <p className="text-2xl font-semibold text-white">بهترین تجهیزات و لوازم الکترونیکی را از ما بخرید</p>
-        <Button className="h-14 px-6 text-4xl" colour={'primary'}>
+        <Button className="h-14 px-6 text-4xl" colour={'primary'} onClick={() => navigate(Routes.SHOP)}>
           شروع خرید
         </Button>
       </div>

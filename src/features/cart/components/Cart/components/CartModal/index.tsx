@@ -8,7 +8,7 @@ export interface CartModalProps {
   setCartModal: Dispatch<SetStateAction<IModal>>
 }
 
-const ProductModal = ({ cartModal, setCartModal }: CartModalProps) => {
+const CartModal = ({ cartModal, setCartModal }: CartModalProps) => {
   const { control, errors, handleSubmit } = useCartModal({ cartModal, setCartModal })
   return (
     <Modal width="max-w-2xl" isOpen={cartModal.isOpen}>
@@ -28,7 +28,7 @@ const ProductModal = ({ cartModal, setCartModal }: CartModalProps) => {
         </span>
       </Modal.Header>
       <Modal.Body>
-        <div className="flex flex-wrap *:flex-[1_1_250px] gap-2 p-4">
+        <div className="flex flex-col gap-2 p-4">
           <Input label="استان" control={control} error={errors.province?.message} name="province" />
           <Input label="شهر" control={control} error={errors.city?.message} name="city" />
           <Input label="کد پستی" control={control} error={errors.postalCode?.message} name="postalCode" />
@@ -36,7 +36,7 @@ const ProductModal = ({ cartModal, setCartModal }: CartModalProps) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button colour="primary" className="w-20 me-2" loaderOnly onClick={handleSubmit}>
+        <Button colour="primary" className="w-24 me-2" loaderOnly onClick={handleSubmit}>
           ثبت سفارش
         </Button>
         <Button
@@ -57,4 +57,4 @@ const ProductModal = ({ cartModal, setCartModal }: CartModalProps) => {
   )
 }
 
-export { ProductModal }
+export { CartModal }

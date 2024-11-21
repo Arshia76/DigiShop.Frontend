@@ -1,7 +1,10 @@
 import { Button, Input } from '@/components/ui'
 import { useSigninForm } from './useSigninForm'
+import { useNavigate } from 'react-router-dom'
+import { Routes } from '@/lib/routes'
 const SigninForm = () => {
   const { control, errors, isLoading, handleSubmit } = useSigninForm()
+  const navigate = useNavigate()
   return (
     <section
       className="flex flex-col shadow-md items-center border 
@@ -15,6 +18,10 @@ const SigninForm = () => {
       <Button colour={'primary'} loaderOnly loading={isLoading} onClick={handleSubmit} className="w-32">
         ورود
       </Button>
+      <hr className="border-t border-t-gray-300 my-4 w-full" />
+      <span className="text-md text-custom-slate cursor-pointer" onClick={() => navigate(Routes.SIGNUP)}>
+        حساب کاربری ندارم‌؟! ثبت‌نام
+      </span>
     </section>
   )
 }

@@ -1,21 +1,21 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { CartSchema, CartType } from '../../schema'
+import { CreateCartOrderSchema, CreateCartOrderType } from '../../schema'
 import { CartModalProps } from '.'
 
 export function useCartModal({ cartModal, setCartModal }: CartModalProps) {
-  const { data } = cartModal
+  const { isOpen } = cartModal
 
   const {
     control,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<CartType>({
-    resolver: zodResolver(CartSchema),
+  } = useForm<CreateCartOrderType>({
+    resolver: zodResolver(CreateCartOrderSchema),
   })
 
-  const onSubmit: SubmitHandler<CartType> = (values) => {
+  const onSubmit: SubmitHandler<CreateCartOrderType> = (values) => {
     //   updateProduct(
     //     { id: data.id, ...values },
     //     {

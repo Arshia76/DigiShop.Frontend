@@ -22,6 +22,7 @@ import Products_Icon from './Svg/products.svg'
 import Home_Icon from './Svg/home.svg'
 import Login_Icon from './Svg/logout.svg'
 import Logout_Icon from './Svg/login.svg'
+import Cart_Icon from './Svg/cart.svg'
 
 import Hero_Img from './Image/hero.jpg'
 import Playstation_Img from './Image/playstation.jpg'
@@ -66,6 +67,7 @@ const Svg = {
   Products_Icon,
   Categories_Icon,
   Users_Icon,
+  Cart_Icon,
 }
 
 export { Svg, Img }

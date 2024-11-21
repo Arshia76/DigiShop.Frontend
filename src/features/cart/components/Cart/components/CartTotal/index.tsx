@@ -1,15 +1,33 @@
+import { useState } from 'react'
 import { Button } from '@/components/ui'
+import { useCartContext } from '../../context'
+import { CartModal } from '../CartModal'
+import { IModal } from '@/lib/interface'
 
 const CartTotal = () => {
+  const { cartItems } = useCartContext()
+
+  const totalPrice = cartItems.reduce((total, current) => {
+    return (total += current.price * current.selectedQuantity)
+  }, 0)
+
+  const payable = totalPrice ? totalPrice + 50000 : 0
+
+  const [cartModal, setCartModal] = useState<IModal>({
+    data: null,
+    isOpen: false,
+    type: 'add',
+  })
+
   return (
     <div className="flex flex-col rounded-lg border border-gray-300 p-4 gap-4 h-fit max-w-xs">
       <div className="flex items-center justify-between">
         <span>مبلغ کل</span>
-        <span>15,500,000 ریال</span>
+        <span>{totalPrice.toLocaleString()} ریال</span>
       </div>
       <div className="flex items-center justify-between">
         <span>هزینه ارسال</span>
-        <span>50,500 ریال</span>
+        <span>{totalPrice > 0 ? '50,000' : '0'} ریال</span>
       </div>
       <div className="flex items-center justify-between">
         <span>تخفیف</span>
@@ -17,11 +35,23 @@ const CartTotal = () => {
       </div>
       <div className="flex items-center justify-between">
         <span>پرداختی نهایی</span>
-        <span>15,550,500 ریال</span>
+        <span>{payable.toLocaleString()} ریال</span>
       </div>
-      <Button colour={'primary'} className="w-full">
+      <Button
+        colour={'primary'}
+        className="w-full"
+        disabled={totalPrice === 0}
+        onClick={() =>
+          setCartModal({
+            isOpen: true,
+            type: 'add',
+            data: null,
+          })
+        }
+      >
         پرداخت
       </Button>
+      <CartModal cartModal={cartModal} setCartModal={setCartModal} />
     </div>
   )
 }

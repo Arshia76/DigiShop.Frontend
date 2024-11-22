@@ -23,6 +23,8 @@ import Home_Icon from './Svg/home.svg'
 import Login_Icon from './Svg/logout.svg'
 import Logout_Icon from './Svg/login.svg'
 import Cart_Icon from './Svg/cart.svg'
+import Credit_Card_Icon from './Svg/credit-card.svg'
+import Globe_Icon from './Svg/globe.svg'
 
 import Hero_Img from './Image/hero.jpg'
 import Playstation_Img from './Image/playstation.jpg'
@@ -68,6 +70,8 @@ const Svg = {
   Categories_Icon,
   Users_Icon,
   Cart_Icon,
+  Credit_Card_Icon,
+  Globe_Icon,
 }
 
 export { Svg, Img }

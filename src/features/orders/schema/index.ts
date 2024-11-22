@@ -19,19 +19,13 @@ const CreateOrderSchema = z.object({
     })
     .min(1, 'کدپستی  را وارد کنید'),
 
-  address: z
+  detail: z
     .string({
       required_error: 'آدرس را وارد کنید',
     })
     .min(1, 'آدرس را وارد کنید'),
-
-  user: z
-    .string({
-      required_error: 'کاربر را انتخاب کنید',
-    })
-    .min(1, 'کاربر را انتخاب کنید'),
 })
 
-export type CreateCategoryType = z.infer<typeof CreateOrderSchema>
+export type CreateOrderType = z.infer<typeof CreateOrderSchema>
 
 export { CreateOrderSchema }

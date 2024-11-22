@@ -4,6 +4,7 @@ import {
   createUser,
   deleteUser,
   getUser,
+  getUserOrders,
   getUsers,
   updateUser,
 } from '../api'
@@ -18,10 +19,13 @@ export function useGetUsersQuery({ onSuccess, onError }: IQueryParams) {
   })
 }
 
-export function useGetUserQuery({ data, onSuccess, onError }: IQueryParams) {
+export function useGetUserQuery(
+  id: string,
+  { onSuccess, onError }: IQueryParams
+) {
   return useQuery({
-    queryFn: () => getUser(data),
-    queryKey: ['user', data],
+    queryFn: () => getUser(id),
+    queryKey: ['user', id],
     onSuccess,
     onError,
   })

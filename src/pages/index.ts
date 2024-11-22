@@ -9,5 +9,19 @@ import { SignupPage } from './Auth/Signup'
 import { SigninPage } from './Auth/Signin'
 import { ShopPage } from './Shop'
 import { ProductPage } from './Product'
+import { OrdersPage } from './admin/Orders'
 
-export { HomePage, AdminMainPage, SigninPage, SignupPage, CartPage, CategoriesPage, ProductsPage, ProductPage, ProfilePage, UsersPage, ShopPage }
+export {
+  HomePage,
+  AdminMainPage,
+  SigninPage,
+  SignupPage,
+  CartPage,
+  CategoriesPage,
+  OrdersPage,
+  ProductsPage,
+  ProductPage,
+  ProfilePage,
+  UsersPage,
+  ShopPage,
+}

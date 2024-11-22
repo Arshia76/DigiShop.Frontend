@@ -14,7 +14,7 @@ const AuthContext = createContext<{
   isLoadingSignup: boolean
   signin: (userData: SigninType) => void
   signup: (userData: SignupType) => void
-  logout: () => void
+  signout: () => void
 }>({
   isAuthenticated: false,
   user: {
@@ -26,7 +26,7 @@ const AuthContext = createContext<{
   isLoadingSignup: false,
   signin: () => null,
   signup: () => null,
-  logout: () => null,
+  signout: () => null,
 })
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -43,8 +43,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  const { mutate: signinMutation, isLoading: isLoadingSignin } = useSigninMutation()
-  const { mutate: signupMutation, isLoading: isLoadingSignup } = useSignupMutation()
+  const { mutate: signinMutation, isLoading: isLoadingSignin } =
+    useSigninMutation()
+  const { mutate: signupMutation, isLoading: isLoadingSignup } =
+    useSignupMutation()
 
   const signin = (userData: SigninType) => {
     signinMutation(userData, {
@@ -72,12 +74,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     })
   }
 
-  const logout = () => {
+  const signout = () => {
     setUser({
       access_token: '',
       id: '',
       role: '',
     })
+    setIsAuthenticated(false)
+    setCookie('user', null)
   }
 
   useEffect(() => {
@@ -95,11 +99,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [cookies.user])
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, signin, signup, logout, isLoadingSignin, isLoadingSignup }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        user,
+        signin,
+        signup,
+        signout,
+        isLoadingSignin,
+        isLoadingSignup,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )
 }
 
 // eslint-disable-next-line
-export const useAuth = () => useContext(AuthContext)
+export const useAuthContext = () => useContext(AuthContext)

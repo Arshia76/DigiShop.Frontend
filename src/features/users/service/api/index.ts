@@ -1,5 +1,9 @@
 import { http } from '@/lib/http'
-import { IChangeUserPassword, ICreateUserData, IUpdateUserData } from '../interface'
+import {
+  IChangeUserPassword,
+  ICreateUserData,
+  IUpdateUserData,
+} from '../interface'
 
 const getUsers = async () => {
   const response = await http.get('users')
@@ -7,7 +11,7 @@ const getUsers = async () => {
 }
 
 const getUser = async (id: string) => {
-  const response = await http.get(`user/${id}`)
+  const response = await http.get(`users/${id}`)
   return response.data
 }
 
@@ -22,7 +26,7 @@ const updateUser = async (data: IUpdateUserData) => {
 }
 
 const changeUserPassword = async (data: IChangeUserPassword) => {
-  const response = await http.patch('users/update', data)
+  const response = await http.patch('users/changePassword', data)
   return response.data
 }
 
@@ -31,4 +35,11 @@ const deleteUser = async (id: string) => {
   return response.data
 }
 
-export { getUser, getUsers, createUser, updateUser, deleteUser, changeUserPassword }
+export {
+  getUser,
+  getUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+  changeUserPassword,
+}

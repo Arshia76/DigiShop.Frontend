@@ -76,7 +76,7 @@ const router = createBrowserRouter([
     },
     children: [
       {
-        index: true,
+        path: 'main',
         lazy: async () => {
           const { AdminMainPage } = await import('@/pages')
           return {
@@ -122,6 +122,19 @@ const router = createBrowserRouter([
             element: (
               <ProtectedRoute roles={['Admin']}>
                 <UsersPage />
+              </ProtectedRoute>
+            ),
+          }
+        },
+      },
+      {
+        path: 'orders',
+        lazy: async () => {
+          const { OrdersPage } = await import('@/pages')
+          return {
+            element: (
+              <ProtectedRoute roles={['Admin']}>
+                <OrdersPage />
               </ProtectedRoute>
             ),
           }

@@ -15,10 +15,20 @@ const CartContext = createContext<{
   removeFromCart: (id: string) => void
   changeItemQuantity: (id: string, quantity: number) => void
   checkItemExists: (id: string) => boolean
-}>({ cartItems: [], addToCart: () => null, removeFromCart: () => null, changeItemQuantity: () => null, checkItemExists: () => false })
+  clearCart: () => void
+}>({
+  cartItems: [],
+  addToCart: () => null,
+  removeFromCart: () => null,
+  changeItemQuantity: () => null,
+  checkItemExists: () => false,
+  clearCart: () => null,
+})
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(JSON.parse(localStorage.getItem('DigiShopCart') ?? JSON.stringify('')) || [])
+  const [cartItems, setCartItems] = useState<CartItem[]>(
+    JSON.parse(localStorage.getItem('DigiShopCart') ?? JSON.stringify('')) || []
+  )
 
   const addToCart = (item: CartItem) => {
     setCartItems((prevItems) => {
@@ -60,12 +70,29 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     return cartItems.some((item) => item.id === id)
   }
 
+  const clearCart = () => {
+    setCartItems([])
+    localStorage.removeItem('DigiShopCart')
+  }
   useEffect(() => {
     localStorage.setItem('DigiShopCart', JSON.stringify(cartItems))
     // eslint-disable-next-line
   }, [cartItems.length])
 
-  return <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, changeItemQuantity, checkItemExists }}>{children}</CartContext.Provider>
+  return (
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        changeItemQuantity,
+        clearCart,
+        checkItemExists,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  )
 }
 
 // eslint-disable-next-line

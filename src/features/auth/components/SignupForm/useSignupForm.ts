@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { SignupSchema, SignupType } from '../../schema'
-import { useAuth } from '../../context'
+import { useAuthContext } from '../../context'
 
 export function useSignupForm() {
-  const { signup, isLoadingSignup } = useAuth()
+  const { signup, isLoadingSignup } = useAuthContext()
 
   const {
     control,

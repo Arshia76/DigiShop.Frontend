@@ -9,7 +9,7 @@ import { useDeleteUserMutation, useGetUsersQuery } from '../../service/query'
 import { ITableRef } from '@/components/ui/Table'
 import { DeleteModalProps } from '@/components/shared/DeleteModal'
 
-export function useUsersTable() {
+export function useUserTable() {
   const [userModal, setUserModal] = useState<IModal>({
     data: null,
     isOpen: false,
@@ -61,7 +61,9 @@ export function useUsersTable() {
     },
   ]
 
-  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (row: CustomCellRendererProps) => [
+  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (
+    row: CustomCellRendererProps
+  ) => [
     {
       theme: 'yellow',
       icon: Svg.Edit_Icon,
@@ -118,5 +120,13 @@ export function useUsersTable() {
     },
   })
 
-  return { colDefs, gridRef, actions, isFetching, userModal, deleteModalState, setUserModal }
+  return {
+    colDefs,
+    gridRef,
+    actions,
+    isFetching,
+    userModal,
+    deleteModalState,
+    setUserModal,
+  }
 }

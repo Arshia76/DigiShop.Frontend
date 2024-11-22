@@ -11,5 +11,6 @@ export const Routes = {
     PRODUCTS: '/admin/products',
     USERS: '/admin/users',
     CATEGORIES: '/admin/categories',
+    ORDERS: '/admin/orders',
   },
 }

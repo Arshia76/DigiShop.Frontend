@@ -42,9 +42,7 @@ export function useOrderTable() {
 
   const { isFetching } = useGetOrdersQuery({
     onSuccess(data) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      gridRef.current?.setData(data)
+      if (gridRef.current?.setData) gridRef.current?.setData(data)
     },
     onError(error) {
       Alert({ type: 'error', message: error.message })

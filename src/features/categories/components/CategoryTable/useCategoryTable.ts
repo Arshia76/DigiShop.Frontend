@@ -5,7 +5,10 @@ import { ColDef, ColGroupDef } from 'ag-grid-enterprise'
 import { CustomCellRendererProps } from 'ag-grid-react'
 import { GridActionItemProps } from '@/components/ui/Table/components/actions'
 import { Svg } from '@/assets'
-import { useDeleteCategoryMutation, useGetCategoriesQuery } from '../../service/query'
+import {
+  useDeleteCategoryMutation,
+  useGetCategoriesQuery,
+} from '../../service/query'
 import { ITableRef } from '@/components/ui/Table'
 import { DeleteModalProps } from '@/components/shared/DeleteModal'
 import { Alert } from '@/components/ui'
@@ -51,7 +54,9 @@ export function useCategoryTable() {
     },
   ]
 
-  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (row: CustomCellRendererProps) => [
+  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (
+    row: CustomCellRendererProps
+  ) => [
     {
       theme: 'yellow',
       icon: Svg.Edit_Icon,
@@ -101,9 +106,7 @@ export function useCategoryTable() {
 
   const { isFetching } = useGetCategoriesQuery({
     onSuccess(data) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      gridRef.current?.setData(data)
+      if (gridRef.current?.setData) gridRef.current?.setData(data)
     },
     onError(error) {
       Alert({ type: 'error', message: error.message })

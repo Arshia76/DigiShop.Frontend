@@ -62,7 +62,9 @@ export function useUserTable() {
     },
   ]
 
-  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (row: CustomCellRendererProps) => [
+  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (
+    row: CustomCellRendererProps
+  ) => [
     {
       theme: 'yellow',
       icon: Svg.Edit_Icon,
@@ -112,9 +114,7 @@ export function useUserTable() {
 
   const { isFetching } = useGetUsersQuery({
     onSuccess(data) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      gridRef.current?.setData(data)
+      if (gridRef.current?.setData) gridRef.current?.setData(data)
     },
     onError(error) {
       Alert({ type: 'error', message: error.message })

@@ -16,11 +16,11 @@ export function useProductFilter() {
 
   const sortOptions = [
     {
-      label: 'مبلغ',
+      label: 'بیشترین قیمت',
       value: 'price',
     },
     {
-      label: 'تاریخ',
+      label: 'جدید ترین',
       value: 'date',
     },
   ]
@@ -31,12 +31,25 @@ export function useProductFilter() {
 
   const { category, query, sort } = watch()
 
-  const { refetch, isFetching } = useGetProductsQuery({ category: category?.value, query: query?.length ? query : null, sort: sort?.value }, {})
+  const { refetch, isFetching } = useGetProductsQuery(
+    {
+      category: category?.value,
+      query: query?.length ? query : null,
+      sort: sort?.value,
+    },
+    {}
+  )
 
   const onSubmit: SubmitHandler<ProductQueryType> = () => {
     refetch()
     queryClient.invalidateQueries('products')
   }
 
-  return { control, categories, sortOptions, isFetching, handleSubmit: handleSubmit(onSubmit) }
+  return {
+    control,
+    categories,
+    sortOptions,
+    isFetching,
+    handleSubmit: handleSubmit(onSubmit),
+  }
 }

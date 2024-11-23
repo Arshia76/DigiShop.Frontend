@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { useQueryClient } from 'react-query'
+import { Alert } from '@/components/ui'
 import { IModal } from '@/lib/interface'
 import { ColDef, ColGroupDef } from 'ag-grid-enterprise'
 import { CustomCellRendererProps } from 'ag-grid-react'
@@ -61,9 +62,7 @@ export function useUserTable() {
     },
   ]
 
-  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (
-    row: CustomCellRendererProps
-  ) => [
+  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (row: CustomCellRendererProps) => [
     {
       theme: 'yellow',
       icon: Svg.Edit_Icon,
@@ -113,10 +112,12 @@ export function useUserTable() {
 
   const { isFetching } = useGetUsersQuery({
     onSuccess(data) {
+      // eslint-disable-next-line
+      // @ts-ignore
       gridRef.current?.setData(data)
     },
     onError(error) {
-      console.log(error)
+      Alert({ type: 'error', message: error.message })
     },
   })
 

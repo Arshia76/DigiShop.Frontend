@@ -1,16 +1,9 @@
 import { useMutation, useQuery } from 'react-query'
-import {
-  changeUserPassword,
-  createUser,
-  deleteUser,
-  getUser,
-  getUserOrders,
-  getUsers,
-  updateUser,
-} from '../api'
-import { IQueryParams } from '@/lib/interface'
+import { changeUserPassword, createUser, deleteUser, getUser, getUsers, updateUser } from '../api'
+import { IErrorResult, IQueryParams } from '@/lib/interface'
+import { IChangeUserPassword, ICreateUserData, IUpdateUserData, IUserResult } from '../interface'
 
-export function useGetUsersQuery({ onSuccess, onError }: IQueryParams) {
+export function useGetUsersQuery({ onSuccess, onError }: IQueryParams<IUserResult[]>) {
   return useQuery({
     queryFn: getUsers,
     queryKey: 'users',
@@ -19,10 +12,7 @@ export function useGetUsersQuery({ onSuccess, onError }: IQueryParams) {
   })
 }
 
-export function useGetUserQuery(
-  id: string,
-  { onSuccess, onError }: IQueryParams
-) {
+export function useGetUserQuery(id: string, { onSuccess, onError }: IQueryParams<IUserResult>) {
   return useQuery({
     queryFn: () => getUser(id),
     queryKey: ['user', id],
@@ -32,25 +22,25 @@ export function useGetUserQuery(
 }
 
 export function useCreateUserMutation() {
-  return useMutation({
+  return useMutation<IUserResult, IErrorResult, ICreateUserData>({
     mutationFn: createUser,
   })
 }
 
 export function useUpdateUserMutation() {
-  return useMutation({
+  return useMutation<IUserResult, IErrorResult, IUpdateUserData>({
     mutationFn: updateUser,
   })
 }
 
 export function useChangeUserPasswordMutation() {
-  return useMutation({
+  return useMutation<IUserResult, IErrorResult, IChangeUserPassword>({
     mutationFn: changeUserPassword,
   })
 }
 
 export function useDeleteUserMutation() {
-  return useMutation({
+  return useMutation<IUserResult, IErrorResult, string>({
     mutationFn: deleteUser,
   })
 }

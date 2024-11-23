@@ -1,7 +1,8 @@
 import { http } from '@/lib/http'
+import { IProductQuery } from '../interface'
 
-const getProducts = async () => {
-  const response = await http.get('products')
+const getProducts = async (queryParams: IProductQuery) => {
+  const response = await http.get('products', { params: queryParams })
   return response.data
 }
 

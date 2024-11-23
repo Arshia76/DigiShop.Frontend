@@ -1,8 +1,9 @@
 import { useMutation, useQuery } from 'react-query'
 import { createOrder, getOrders, getUserOrders } from '../api'
-import { IQueryParams } from '@/lib/interface'
+import { IErrorResult, IQueryParams } from '@/lib/interface'
+import { ICreateOrderData, IOrderResult } from '../interface'
 
-export function useGetOrdersQuery({ onSuccess, onError }: IQueryParams) {
+export function useGetOrdersQuery({ onSuccess, onError }: IQueryParams<IOrderResult[]>) {
   return useQuery({
     queryFn: getOrders,
     queryKey: 'orders',
@@ -11,7 +12,7 @@ export function useGetOrdersQuery({ onSuccess, onError }: IQueryParams) {
   })
 }
 
-export function useGetUserOrdersQuery({ onSuccess, onError }: IQueryParams) {
+export function useGetUserOrdersQuery({ onSuccess, onError }: IQueryParams<IOrderResult[]>) {
   return useQuery({
     queryFn: getUserOrders,
     queryKey: 'user',
@@ -21,7 +22,7 @@ export function useGetUserOrdersQuery({ onSuccess, onError }: IQueryParams) {
 }
 
 export function useCreateOrderMutation() {
-  return useMutation({
+  return useMutation<IOrderResult, IErrorResult, ICreateOrderData>({
     mutationFn: createOrder,
   })
 }

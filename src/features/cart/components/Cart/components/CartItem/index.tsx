@@ -27,7 +27,7 @@ const CartItem = ({ id, img, price, quantity, title, selectedQuantity }: CartIte
      pb-4 last:border-none gap-4 "
     >
       <div className="flex items-center gap-4 flex-[1_1_250px]">
-        <img width={120} height={120} src={`${'http://localhost:5000/'}${img?.replaceAll('\\', '/')}`} alt={title} className="rounded-lg" />
+        <img width={120} height={120} src={`${window.STATIC_URL?.imagePath}${img?.replaceAll('\\', '/')}`} alt={title} className="rounded-lg" />
 
         <span className="font-semibold text-xl">{title}</span>
       </div>

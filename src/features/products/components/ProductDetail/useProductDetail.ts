@@ -4,9 +4,9 @@ import { useCartContext } from '@/features/cart/components/Cart/context'
 
 export function useProductDetail() {
   const { id } = useParams()
-  const { data: product } = useGetProductQuery(id as string, {})
+  const { data: product, isLoading } = useGetProductQuery(id as string, {})
 
   const { addToCart, checkItemExists } = useCartContext()
 
-  return { product, addToCart, checkItemExists }
+  return { product, isLoading, addToCart, checkItemExists }
 }

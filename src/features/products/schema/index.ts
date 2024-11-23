@@ -55,16 +55,28 @@ const CreateProductSchema = z.object({
 
 const UpdateProductSchema = CreateProductSchema
 
-const ProductFilterSchema = z.object({
-  sortBy: z.string().optional(),
+const ProductQuerySchema = z.object({
+  sort: z
+    .object({
+      label: z.string().optional(),
+      value: z.string().optional(),
+    })
+    .optional()
+    .nullable(),
 
-  category: z.string().optional(),
+  category: z
+    .object({
+      label: z.string().optional(),
+      value: z.string().optional(),
+    })
+    .optional()
+    .nullable(),
 
-  query: z.string().optional(),
+  query: z.string().optional().nullable(),
 })
 
 export type CreateProductType = z.infer<typeof CreateProductSchema>
 export type UpdateProductType = z.infer<typeof UpdateProductSchema>
-export type ProductFilterType = z.infer<typeof ProductFilterSchema>
+export type ProductQueryType = z.infer<typeof ProductQuerySchema>
 
-export { CreateProductSchema, UpdateProductSchema, ProductFilterSchema }
+export { CreateProductSchema, UpdateProductSchema, ProductQuerySchema }

@@ -1,6 +1,15 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import ProtectedRoute from './features/auth/components/ProtectedRoute'
 
+declare global {
+  interface Window {
+    STATIC_URL?: {
+      mainApiUrl?: string
+      imagePath?: string
+    }
+  }
+}
+
 const router = createBrowserRouter([
   {
     path: '/',

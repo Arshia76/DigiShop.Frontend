@@ -4,8 +4,12 @@ export interface IModal {
   data?: any
 }
 
-export interface IQueryParams {
-  data?: any
-  onSuccess?: ((data: any) => void) | undefined
-  onError?: ((err: unknown) => void) | undefined
+export interface IQueryParams<T> {
+  onSuccess?: ((data: T) => void) | undefined
+  onError?: ((err: IErrorResult) => void) | undefined
+}
+
+export interface IErrorResult {
+  statusCode: number
+  message: string | string[]
 }

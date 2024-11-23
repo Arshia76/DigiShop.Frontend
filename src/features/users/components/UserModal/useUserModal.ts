@@ -5,6 +5,7 @@ import { CreateUserSchema, CreateUserType, ChangeUserPasswordSchema, ChangeUserP
 import { useCreateUserMutation, useUpdateUserMutation, useChangeUserPasswordMutation } from '../../service/query'
 import { useQueryClient } from 'react-query'
 import { UserModalProps } from '.'
+import { Alert } from '@/components/ui'
 
 export function useUserModal({ userModal, setUserModal }: UserModalProps) {
   const { type, data } = userModal
@@ -37,7 +38,6 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
     control,
     handleSubmit,
     setValue,
-    setError,
     clearErrors,
     formState: { errors },
   } = useForm<UserType>({
@@ -47,7 +47,6 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
   const {
     control: passwordControl,
     handleSubmit: handleChangePassword,
-    setError: setChangePasswordError,
     clearErrors: clearChangePasswordErrors,
     formState: { errors: passwordErrors },
   } = useForm<ChangeUserPasswordType>({
@@ -68,8 +67,8 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
               type,
             })
           },
-          onError(error: any) {
-            setError('root', { message: error.response.data?.message })
+          onError(error) {
+            Alert({ type: 'error', message: error.message })
           },
         }
       )
@@ -84,8 +83,8 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
             type,
           })
         },
-        onError(error: any) {
-          setError('root', { message: error.response.data?.message })
+        onError(error) {
+          Alert({ type: 'error', message: error.message })
         },
       })
     }
@@ -102,10 +101,8 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
             type,
           })
         },
-        onError(error: any) {
-          setChangePasswordError('root', {
-            message: error.response.data?.message,
-          })
+        onError(error) {
+          Alert({ type: 'error', message: error.message })
         },
       }
     )

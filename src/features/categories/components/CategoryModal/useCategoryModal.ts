@@ -5,6 +5,7 @@ import { CreateCategorySchema, CreateCategoryType, UpdateCategorySchema, UpdateC
 import { useCreateCategoryMutation, useUpdateCategoryMutation } from '../../service/query'
 import { useQueryClient } from 'react-query'
 import { CategryModalProps } from '.'
+import { Alert } from '@/components/ui'
 
 export function useCategoryModal({ categoryModal, setCategoryModal }: CategryModalProps) {
   const { type, data, isOpen } = categoryModal
@@ -35,7 +36,6 @@ export function useCategoryModal({ categoryModal, setCategoryModal }: CategryMod
     control,
     handleSubmit,
     setValue,
-    setError,
     clearErrors,
     formState: { errors },
   } = useForm<CategoryType>({
@@ -56,8 +56,8 @@ export function useCategoryModal({ categoryModal, setCategoryModal }: CategryMod
               type,
             })
           },
-          onError(error: any) {
-            setError('root', { message: error.response.data?.message })
+          onError(error) {
+            Alert({ type: 'error', message: error.message })
           },
         }
       )
@@ -72,8 +72,8 @@ export function useCategoryModal({ categoryModal, setCategoryModal }: CategryMod
             type,
           })
         },
-        onError(error: any) {
-          setError('root', { message: error.response.data?.message })
+        onError(error) {
+          Alert({ type: 'error', message: error.message })
         },
       })
     }

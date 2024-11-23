@@ -7,6 +7,7 @@ import { useCreateOrderMutation } from '../../service/query'
 import { useAuthContext } from '@/features/auth/context'
 import { useCartContext } from '@/features/cart/components/Cart/context'
 import moment from 'moment-jalaali'
+import { Alert } from '@/components/ui'
 
 export function useOrderModal({ orderModal, setOrderModal }: OrderModalProps) {
   const { isOpen, type } = orderModal
@@ -15,7 +16,6 @@ export function useOrderModal({ orderModal, setOrderModal }: OrderModalProps) {
   const {
     control,
     handleSubmit,
-    setError,
     setValue,
     formState: { errors },
   } = useForm<CreateOrderType>({
@@ -47,8 +47,8 @@ export function useOrderModal({ orderModal, setOrderModal }: OrderModalProps) {
           })
           clearCart()
         },
-        onError(error: any) {
-          setError('root', { message: error.response.data?.message })
+        onError(error) {
+          Alert({ type: 'error', message: error.message })
         },
       }
     )

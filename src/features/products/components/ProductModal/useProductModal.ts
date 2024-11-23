@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Alert } from '@/components/ui'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { CreateProductSchema, CreateProductType, UpdateProductSchema, UpdateProductType } from '../../schema'
 import { useCreateProductMutation, useUpdateProductMutation } from '../../service/query'
@@ -7,6 +8,7 @@ import { useQueryClient } from 'react-query'
 import { ProductModalProps } from '.'
 import { useGetCategoriesQuery } from '@/features/categories/service/query'
 import { useProductImage } from '../ProductImage/useProductImage'
+import moment from 'moment-jalaali'
 
 export function useProductModal({ productModal, setProductModal }: ProductModalProps) {
   const { type, data, isOpen } = productModal
@@ -41,7 +43,6 @@ export function useProductModal({ productModal, setProductModal }: ProductModalP
     control,
     handleSubmit,
     setValue,
-    setError,
     clearErrors,
     watch,
     formState: { errors },
@@ -60,6 +61,7 @@ export function useProductModal({ productModal, setProductModal }: ProductModalP
     formData.append('quantity', values.quantity.toString())
     formData.append('title', values.title)
     formData.append('description', values.description)
+    formData.append('date', moment().format())
 
     if (type === 'edit') {
       formData.append('id', data._id)
@@ -73,8 +75,8 @@ export function useProductModal({ productModal, setProductModal }: ProductModalP
             type,
           })
         },
-        onError(error: any) {
-          setError('root', { message: error.response.data?.message })
+        onError(error) {
+          Alert({ type: 'error', message: error.message })
         },
       })
     } else {
@@ -88,8 +90,8 @@ export function useProductModal({ productModal, setProductModal }: ProductModalP
             type,
           })
         },
-        onError(error: any) {
-          setError('root', { message: error.response.data?.message })
+        onError(error) {
+          Alert({ type: 'error', message: error.message })
         },
       })
     }
@@ -97,14 +99,14 @@ export function useProductModal({ productModal, setProductModal }: ProductModalP
 
   useEffect(() => {
     if (data && type === 'edit') {
-      const category = categories.find((item) => item._id === data.category._id)
+      const category = categories?.find((item) => item._id === data.category._id)
 
       setValue('title', data?.title)
       setValue('description', data?.description)
       setValue('price', data?.price)
       setValue('quantity', data?.quantity)
-      setValue('image', `${'http://localhost:5000/'}${data.image.replaceAll('\\', '/')}`)
-      setValue('category', { label: category.title, value: category._id })
+      setValue('image', `${window.STATIC_URL?.imagePath}${data.image.replaceAll('\\', '/')}`)
+      setValue('category', { label: category?.title, value: category?._id })
     } else {
       setValue('title', '')
       setValue('description', '')

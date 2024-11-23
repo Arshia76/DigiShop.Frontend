@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { Alert } from '@/components/ui'
 import { useQueryClient } from 'react-query'
 import { IModal } from '@/lib/interface'
 import { ColDef, ColGroupDef } from 'ag-grid-enterprise'
@@ -109,14 +110,19 @@ export function useProductTable() {
     },
   ]
 
-  const { isFetching } = useGetProductsQuery({
-    onSuccess(data) {
-      gridRef.current?.setData(data)
-    },
-    onError(error) {
-      console.log(error)
-    },
-  })
+  const { isFetching } = useGetProductsQuery(
+    {},
+    {
+      onSuccess(data) {
+        // eslint-disable-next-line
+        // @ts-ignore
+        gridRef.current?.setData(data)
+      },
+      onError(error) {
+        Alert({ type: 'error', message: error.message })
+      },
+    }
+  )
 
   return {
     colDefs,

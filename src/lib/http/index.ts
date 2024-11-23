@@ -2,11 +2,21 @@ import axios from 'axios'
 import { Cookies } from 'react-cookie'
 
 const http = axios.create({
-  baseURL: 'http://localhost:5000/api/',
+  baseURL: window.STATIC_URL?.mainApiUrl,
   withCredentials: false,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+  },
+  paramsSerializer: function (params) {
+    let result = ''
+
+    result = Object.entries(params)
+      .filter((pair) => pair[1])
+      .map((pair) => pair.map(encodeURIComponent).join('='))
+      .join('&')
+
+    return result
   },
 })
 
@@ -20,5 +30,9 @@ http.interceptors.request.use(
   },
   (err) => err
 )
+
+http.interceptors.response.use(null, (err) => {
+  throw err.response.data
+})
 
 export { http }

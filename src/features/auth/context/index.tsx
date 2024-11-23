@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { useSigninMutation, useSignupMutation } from '../service/query'
 import { SigninType, SignupType } from '../schema'
 import { useCookies } from 'react-cookie'
+import { Alert } from '@/components/ui'
 
 const AuthContext = createContext<{
   isAuthenticated: boolean
@@ -43,10 +44,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  const { mutate: signinMutation, isLoading: isLoadingSignin } =
-    useSigninMutation()
-  const { mutate: signupMutation, isLoading: isLoadingSignup } =
-    useSignupMutation()
+  const { mutate: signinMutation, isLoading: isLoadingSignin } = useSigninMutation()
+  const { mutate: signupMutation, isLoading: isLoadingSignup } = useSignupMutation()
 
   const signin = (userData: SigninType) => {
     signinMutation(userData, {
@@ -56,7 +55,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setCookie('user', data)
       },
       onError(error) {
-        console.log(error)
+        Alert({ type: 'error', message: error?.message })
       },
     })
   }
@@ -69,7 +68,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setCookie('user', data)
       },
       onError(error) {
-        console.log(error)
+        Alert({ type: 'error', message: error?.message })
       },
     })
   }

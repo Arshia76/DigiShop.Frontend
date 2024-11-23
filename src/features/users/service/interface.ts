@@ -15,3 +15,12 @@ export interface IChangeUserPassword {
   oldPassword: string
   newPassword: string
 }
+
+export interface IUserResult {
+  _id: string
+  firstName: string
+  lastName: string
+  phoneNumber: string
+  role: 'Admin' | 'User'
+  username: string
+}

@@ -8,6 +8,7 @@ import { Svg } from '@/assets'
 import { useDeleteCategoryMutation, useGetCategoriesQuery } from '../../service/query'
 import { ITableRef } from '@/components/ui/Table'
 import { DeleteModalProps } from '@/components/shared/DeleteModal'
+import { Alert } from '@/components/ui'
 
 export function useCategoryTable() {
   const [categoryModal, setCategoryModal] = useState<IModal>({
@@ -100,10 +101,12 @@ export function useCategoryTable() {
 
   const { isFetching } = useGetCategoriesQuery({
     onSuccess(data) {
+      // eslint-disable-next-line
+      // @ts-ignore
       gridRef.current?.setData(data)
     },
     onError(error) {
-      console.log(error)
+      Alert({ type: 'error', message: error.message })
     },
   })
 

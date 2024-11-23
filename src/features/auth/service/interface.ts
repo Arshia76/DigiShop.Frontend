@@ -6,5 +6,11 @@ export interface ISignupData {
   password: string
 }
 
-export interface ISigninData
-  extends Pick<ISignupData, 'username' | 'password'> {}
+// eslint-disable-next-line
+export interface ISigninData extends Pick<ISignupData, 'username' | 'password'> {}
+
+export interface IAuthResult {
+  access_token: string
+  id: string
+  role: 'Admin' | 'User'
+}

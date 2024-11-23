@@ -1,34 +1,23 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import {
-  UpdateUserSchema,
-  UpdateUserType,
-  ChangeUserPasswordSchema,
-  ChangeUserPasswordType,
-} from '@/features/users/schema'
-import {
-  useChangeUserPasswordMutation,
-  useGetUserQuery,
-  useUpdateUserMutation,
-} from '@/features/users/service/query'
+import { UpdateUserSchema, UpdateUserType, ChangeUserPasswordSchema, ChangeUserPasswordType } from '@/features/users/schema'
+import { useChangeUserPasswordMutation, useGetUserQuery, useUpdateUserMutation } from '@/features/users/service/query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Routes } from '@/lib/routes'
+import { Alert } from '@/components/ui'
 
 export function useUserInfo() {
   const params = useParams()
   const navigate = useNavigate()
 
-  const { mutate: updateUser, isLoading: isLoadingUpdate } =
-    useUpdateUserMutation()
+  const { mutate: updateUser, isLoading: isLoadingUpdate } = useUpdateUserMutation()
 
-  const { mutate: changeUserPassword, isLoading: isLoadingChangePassword } =
-    useChangeUserPasswordMutation()
+  const { mutate: changeUserPassword, isLoading: isLoadingChangePassword } = useChangeUserPasswordMutation()
 
   const {
     control,
     handleSubmit,
     setValue,
-    setError,
     formState: { errors },
   } = useForm<UpdateUserType>({
     resolver: zodResolver(UpdateUserSchema),
@@ -38,7 +27,6 @@ export function useUserInfo() {
     control: passwordControl,
     handleSubmit: handleChangePassword,
     setValue: setChangePasswordValue,
-    setError: setChangePasswordError,
     formState: { errors: passwordErrors },
   } = useForm<ChangeUserPasswordType>({
     resolver: zodResolver(ChangeUserPasswordSchema),
@@ -49,8 +37,8 @@ export function useUserInfo() {
       { id: params.id as string, ...values },
       {
         onSuccess() {},
-        onError(error: any) {
-          setError('root', { message: error.response.data?.message })
+        onError(error) {
+          Alert({ type: 'error', message: error.message })
         },
       }
     )
@@ -64,10 +52,8 @@ export function useUserInfo() {
           setChangePasswordValue('newPassword', '')
           setChangePasswordValue('oldPassword', '')
         },
-        onError(error: any) {
-          setChangePasswordError('root', {
-            message: error.response.data?.message,
-          })
+        onError(error) {
+          Alert({ type: 'error', message: error.message })
         },
       }
     )

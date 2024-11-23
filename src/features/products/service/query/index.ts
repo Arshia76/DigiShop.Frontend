@@ -1,17 +1,18 @@
 import { useMutation, useQuery } from 'react-query'
 import { createProduct, deleteProduct, getProduct, getProducts, updateProduct } from '../api'
-import { IQueryParams } from '@/lib/interface'
+import { IErrorResult, IQueryParams } from '@/lib/interface'
+import { IProductResult, IProductQuery } from '../interface'
 
-export function useGetProductsQuery({ onSuccess, onError }: IQueryParams) {
+export function useGetProductsQuery(queryParams: IProductQuery, { onSuccess, onError }: IQueryParams<IProductResult[]>) {
   return useQuery({
-    queryFn: getProducts,
+    queryFn: () => getProducts(queryParams),
     queryKey: 'products',
     onSuccess,
     onError,
   })
 }
 
-export function useGetProductQuery(id: string, { onSuccess, onError }: IQueryParams) {
+export function useGetProductQuery(id: string, { onSuccess, onError }: IQueryParams<IProductResult>) {
   return useQuery({
     queryFn: () => getProduct(id),
     queryKey: ['product', id],
@@ -21,19 +22,19 @@ export function useGetProductQuery(id: string, { onSuccess, onError }: IQueryPar
 }
 
 export function useCreateProductMutation() {
-  return useMutation({
+  return useMutation<IProductResult, IErrorResult, FormData>({
     mutationFn: createProduct,
   })
 }
 
 export function useUpdateProductMutation() {
-  return useMutation({
+  return useMutation<IProductResult, IErrorResult, FormData>({
     mutationFn: updateProduct,
   })
 }
 
 export function useDeleteProductMutation() {
-  return useMutation({
+  return useMutation<IProductResult, IErrorResult, string>({
     mutationFn: deleteProduct,
   })
 }

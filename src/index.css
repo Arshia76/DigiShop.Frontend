@@ -9,8 +9,12 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   direction: rtl;
-
   font-family: IranSans !important;
+}
+
+a.active > div {
+  background-color: white;
+  color: var(--slate);
 }
 
 @font-face {

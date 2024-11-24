@@ -9,6 +9,7 @@ export interface IProductResult {
   title: string
   date: string
   price: string
+  quantity: string
   description: string
   image: string
   category: {

@@ -16,7 +16,8 @@ export function isNumeric(data: string) {
 }
 
 export function handleNumberKeyPress(e: KeyboardEvent<HTMLInputElement>) {
-  if (!isNumeric(e.key) && e.key !== 'Backspace' && e.key !== 'Enter') e.preventDefault()
+  if (!isNumeric(e.key) && e.key !== 'Backspace' && e.key !== 'Enter')
+    e.preventDefault()
 }
 
 export function setStorage(key: string, value: Object | string) {
@@ -27,26 +28,7 @@ export function getStorage(key: string) {
   try {
     return JSON.parse(localStorage.getItem(key) ?? '')
   } catch (error) {
+    console.log(error)
     return null
   }
-}
-
-export function digitsFaToEn(num: any) {
-  const id = {
-    '۰': '0',
-    '۱': '1',
-    '۲': '2',
-    '۳': '3',
-    '۴': '4',
-    '۵': '5',
-    '۶': '6',
-    '۷': '7',
-    '۸': '8',
-    '۹': '9',
-  }
-  return num
-    ? num.toString().replace(/[^0-9.]/g, function (w: any) {
-        return id[w] || w
-      })
-    : null
 }

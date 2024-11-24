@@ -25,7 +25,7 @@ const ProductImage = ({ files, openFilePicker, name, control, image }: ProductIm
     <div className="border border-custom-gray p-2 w-fit cursor-pointer rounded-lg" onClick={openFilePicker}>
       <div className="flex justify-center w-full">
         {/* <GrAttachment size={20} /> */}
-        <span>{files && files.length ? files?.[0].name : 'تصویر محصول را انتخاب کنید'}</span>
+        <span>{files && files.length ? files?.[0].name : image ? null : 'تصویر محصول را انتخاب کنید'}</span>
       </div>
       {(files && files.length) || image ? (
         <div className="w-full h-64">

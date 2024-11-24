@@ -1,25 +1,22 @@
-import { Modal, Input, Button } from '@/components/ui';
-import { useCategoryModal } from './useCategoryModal';
-import { IModal } from '@/lib/interface';
-import { Dispatch, SetStateAction } from 'react';
+import { Modal, Input, Button } from '@/components/ui'
+import { useCategoryModal } from './useCategoryModal'
+import { IModal } from '@/lib/interface'
+import { Dispatch, SetStateAction } from 'react'
 
 export interface CategryModalProps {
-  categoryModal: IModal;
-  setCategoryModal: Dispatch<SetStateAction<IModal>>;
+  categoryModal: IModal
+  setCategoryModal: Dispatch<SetStateAction<IModal>>
 }
 
-const CategoryModal = ({
-  categoryModal,
-  setCategoryModal,
-}: CategryModalProps) => {
+const CategoryModal = ({ categoryModal, setCategoryModal }: CategryModalProps) => {
   const { control, errors, handleSubmit, isLoading } = useCategoryModal({
     categoryModal,
     setCategoryModal,
-  });
+  })
   return (
-    <Modal width='max-w-2xl' isOpen={categoryModal.isOpen}>
+    <Modal width="max-w-2xl" isOpen={categoryModal.isOpen}>
       <Modal.Header>
-        <span>کاربر</span>
+        <span>دسته بندی</span>
         <span
           style={{ cursor: 'pointer' }}
           onClick={() =>
@@ -34,28 +31,17 @@ const CategoryModal = ({
         </span>
       </Modal.Header>
       <Modal.Body>
-        <div className='flex flex-wrap *:flex-[1_1_250px] gap-2 p-4'>
-          <Input
-            label='عنوان'
-            control={control}
-            error={errors.title?.message}
-            name='title'
-          />
+        <div className="flex flex-wrap *:flex-[1_1_250px] gap-2 p-4">
+          <Input label="عنوان" control={control} error={errors.title?.message} name="title" />
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          colour='primary'
-          className='w-20 me-2'
-          loaderOnly
-          loading={isLoading}
-          onClick={handleSubmit}
-        >
+        <Button colour="primary" className="w-20 me-2" loaderOnly loading={isLoading} onClick={handleSubmit}>
           اعمال
         </Button>
         <Button
-          colour='secondary'
-          className='w-20'
+          colour="secondary"
+          className="w-20"
           onClick={() =>
             setCategoryModal({
               data: null,
@@ -68,7 +54,7 @@ const CategoryModal = ({
         </Button>
       </Modal.Footer>
     </Modal>
-  );
-};
+  )
+}
 
-export { CategoryModal };
+export { CategoryModal }

@@ -41,14 +41,14 @@ const CreateProductSchema = z.object({
 
   image: z
     .any()
-    .refine((file) => file.name, {
+    .refine((file) => file, {
       message: 'تصویر محصول را انتخاب کنید',
     })
-    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file?.type), {
+    .refine((file) => (file?.type ? ACCEPTED_IMAGE_TYPES.includes(file?.type) : file), {
       message: 'نوع عکس اشتباه است',
     })
 
-    .refine((file) => file?.size <= MAX_FILE_SIZE, {
+    .refine((file) => (file?.size ? file?.size <= MAX_FILE_SIZE : file), {
       message: `سایز تصویر باید کمتر از 1 مگابایت باشد`,
     }),
 })

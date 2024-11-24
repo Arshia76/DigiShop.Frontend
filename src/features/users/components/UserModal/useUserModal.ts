@@ -1,8 +1,20 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { CreateUserSchema, CreateUserType, ChangeUserPasswordSchema, ChangeUserPasswordType, UpdateUserSchema, UpdateUserType } from '../../schema'
-import { useCreateUserMutation, useUpdateUserMutation, useChangeUserPasswordMutation } from '../../service/query'
+import {
+  CreateUserSchema,
+  CreateUserType,
+  UpdateUserSchema,
+  UpdateUserType,
+  ChangeUserPasswordByAdminType,
+  ChangeUserPasswordByAdminSchema,
+} from '../../schema'
+import {
+  useCreateUserMutation,
+  useUpdateUserMutation,
+  useChangeUserPasswordMutation,
+  useChangeUserPasswordByAdminMutation,
+} from '../../service/query'
 import { useQueryClient } from 'react-query'
 import { UserModalProps } from '.'
 import { Alert } from '@/components/ui'
@@ -16,7 +28,7 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
 
   const { mutate: updateUser, isLoading: isLoadingUpdate } = useUpdateUserMutation()
 
-  const { mutate: changeUserPassword, isLoading: isLoadingChangePassword } = useChangeUserPasswordMutation()
+  const { mutate: changeUserPasswordByAdmin, isLoading: isLoadingChangeUserPasswordByAdmin } = useChangeUserPasswordByAdminMutation()
 
   const UserSchema = {
     add: CreateUserSchema,
@@ -45,12 +57,13 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
   })
 
   const {
-    control: passwordControl,
-    handleSubmit: handleChangePassword,
-    clearErrors: clearChangePasswordErrors,
-    formState: { errors: passwordErrors },
-  } = useForm<ChangeUserPasswordType>({
-    resolver: zodResolver(ChangeUserPasswordSchema),
+    control: changeUserPasswordByAdminControl,
+    handleSubmit: handleChangeUserPasswordByADmin,
+    clearErrors: clearChangeUserPasswordByAdminErrors,
+    setValue: setChangeUserPasswordByAdminValue,
+    formState: { errors: changeUserPasswordByAdminErrors },
+  } = useForm<ChangeUserPasswordByAdminType>({
+    resolver: zodResolver(ChangeUserPasswordByAdminSchema),
   })
 
   const onSubmit: SubmitHandler<UserType> = (values) => {
@@ -90,9 +103,9 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
     }
   }
 
-  const onChangePassword: SubmitHandler<ChangeUserPasswordType> = (values) => {
-    changeUserPassword(
-      { id: data.id, ...values },
+  const onChangePassword: SubmitHandler<ChangeUserPasswordByAdminType> = (values) => {
+    changeUserPasswordByAdmin(
+      { id: data._id, ...values },
       {
         onSuccess() {
           setUserModal({
@@ -113,23 +126,22 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
       setValue('firstName', data?.firstName)
       setValue('lastName', data?.lastName)
       setValue('phoneNumber', data?.phoneNumber)
-      setValue('password', data?.password)
-      setValue('password', data?.password)
     } else {
       setValue('firstName', '')
       setValue('lastName', '')
       setValue('phoneNumber', '')
-      setValue('password', '')
-      setValue('password', '')
     }
-  }, [data, setValue, type])
+
+    setChangeUserPasswordByAdminValue('confirmNewPassword', '')
+    setChangeUserPasswordByAdminValue('newPassword', '')
+  }, [data, setValue, setChangeUserPasswordByAdminValue, type])
 
   useEffect(() => {
     clearErrors()
-    clearChangePasswordErrors()
-  }, [type, clearErrors, clearChangePasswordErrors])
+    clearChangeUserPasswordByAdminErrors()
+  }, [type, clearErrors, clearChangeUserPasswordByAdminErrors])
 
-  const isLoading = isLoadingCreate || isLoadingUpdate || isLoadingChangePassword
+  const isLoading = isLoadingCreate || isLoadingUpdate || isLoadingChangeUserPasswordByAdmin
 
   return {
     control,
@@ -137,8 +149,8 @@ export function useUserModal({ userModal, setUserModal }: UserModalProps) {
     isLoading,
     handleSubmit: handleSubmit(onSubmit),
 
-    passwordControl,
-    passwordErrors,
-    handleChangePassword: handleChangePassword(onChangePassword),
+    changeUserPasswordByAdminControl,
+    changeUserPasswordByAdminErrors,
+    handleChangeUserPasswordByADmin: handleChangeUserPasswordByADmin(onChangePassword),
   }
 }

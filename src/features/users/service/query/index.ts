@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from 'react-query'
-import { changeUserPassword, createUser, deleteUser, getUser, getUsers, updateUser } from '../api'
+import { changeUserPassword, changeUserPasswordByAdmin, createUser, deleteUser, getUser, getUsers, updateUser } from '../api'
 import { IErrorResult, IQueryParams } from '@/lib/interface'
-import { IChangeUserPassword, ICreateUserData, IUpdateUserData, IUserResult } from '../interface'
+import { IChangeUserPassword, IChangeUserPasswordByAdmin, ICreateUserData, IUpdateUserData, IUserResult } from '../interface'
 
 export function useGetUsersQuery({ onSuccess, onError }: IQueryParams<IUserResult[]>) {
   return useQuery({
@@ -36,6 +36,12 @@ export function useUpdateUserMutation() {
 export function useChangeUserPasswordMutation() {
   return useMutation<IUserResult, IErrorResult, IChangeUserPassword>({
     mutationFn: changeUserPassword,
+  })
+}
+
+export function useChangeUserPasswordByAdminMutation() {
+  return useMutation<IUserResult, IErrorResult, IChangeUserPasswordByAdmin>({
+    mutationFn: changeUserPasswordByAdmin,
   })
 }
 

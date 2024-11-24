@@ -5,6 +5,28 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      animation: {
+        modalScaleIn: 'scaleIn .3s ease-in-out forwards',
+        modalScaleOut: 'scaleOut .3s ease-in-out forwards',
+      },
+      keyframes: {
+        scaleIn: {
+          from: {
+            transform: 'translate(-50%,-50%) scale(0)',
+          },
+          to: {
+            transform: 'translate(-50%,-50%) scale(1)',
+          },
+        },
+        scaleOut: {
+          from: {
+            transform: 'translate(-50%,-50%) scale(1)',
+          },
+          to: {
+            transform: 'translate(-50%,-50%) scale(0)',
+          },
+        },
+      },
       colors: {
         ...colors,
         custom: {

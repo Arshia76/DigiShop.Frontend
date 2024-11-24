@@ -12,8 +12,14 @@ export interface IUpdateUserData extends Omit<ICreateUserData, 'username' | 'pas
 
 export interface IChangeUserPassword {
   id: string
-  oldPassword: string
+  oldPassword?: string
   newPassword: string
+}
+
+export interface IChangeUserPasswordByAdmin {
+  id: string
+  newPassword?: string
+  confirmNewPassword: string
 }
 
 export interface IUserResult {

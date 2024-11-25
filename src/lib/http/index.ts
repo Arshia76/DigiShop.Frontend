@@ -22,7 +22,7 @@ const http = axios.create({
 
 http.interceptors.request.use(
   (config) => {
-    const accessToken = new Cookies().get('user')?.access_token
+    const accessToken = new Cookies().get('DigiShop_User')?.access_token
     if (accessToken) {
       config.headers.Authorization = 'Bearer' + ' ' + accessToken
     }

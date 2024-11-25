@@ -31,7 +31,7 @@ const AuthContext = createContext<{
 })
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cookies, setCookie] = useCookies(['user'])
+  const [cookies, setCookie] = useCookies(['DigiShop_User'])
   const [user, setUser] = useState<{
     access_token: string
     id: string
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       onSuccess(data) {
         setIsAuthenticated(true)
         setUser(data)
-        setCookie('user', data)
+        setCookie('DigiShop_User', data)
       },
       onError(error) {
         Alert({ type: 'error', message: error?.message })
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       onSuccess(data) {
         setIsAuthenticated(true)
         setUser(data)
-        setCookie('user', data)
+        setCookie('DigiShop_User', data)
       },
       onError(error) {
         Alert({ type: 'error', message: error?.message })
@@ -80,12 +80,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       role: '',
     })
     setIsAuthenticated(false)
-    setCookie('user', null)
+    setCookie('DigiShop_User', null)
   }
 
   useEffect(() => {
-    if (cookies.user) {
-      setUser(cookies.user)
+    if (cookies.DigiShop_User) {
+      setUser(cookies.DigiShop_User)
       setIsAuthenticated(true)
     } else {
       setUser({
@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       })
       setIsAuthenticated(false)
     }
-  }, [cookies.user])
+  }, [cookies.DigiShop_User])
 
   return (
     <AuthContext.Provider

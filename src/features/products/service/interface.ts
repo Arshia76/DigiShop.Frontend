@@ -7,7 +7,8 @@ export interface IProductQuery {
 export interface IProductResult {
   _id: string
   title: string
-  date: string
+  createdAt: string
+  updatedAt: string
   price: string
   quantity: string
   description: string

@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { ColDef, ColGroupDef } from 'ag-grid-enterprise'
 import { useGetUserOrdersQuery } from '../../service/query'
 import { ITableRef } from '@/components/ui/Table'
-import moment from 'moment-jalaali'
 import { Alert } from '@/components/ui'
 
 export function useUserOrders() {
@@ -28,15 +27,17 @@ export function useUserOrders() {
       headerTooltip: 'کدپستی',
     },
     {
-      valueGetter: ({ data }) => moment(data.date).format('jYYYY/jMM/jDD'),
+      field: 'createdAt',
       headerName: 'تاریخ ثبت',
       headerTooltip: 'تاریخ ثبت',
+      type: 'jalaliDate',
     },
 
     {
-      valueGetter: ({ data }) => data.totalAmount.toLocaleString(),
+      field: 'totalAmount',
       headerName: 'مبلغ کل',
       headerTooltip: 'مبلغ کل',
+      type: 'currency',
     },
   ]
 

@@ -5,8 +5,6 @@ export interface ICreateOrderData {
     postalCode: string
     detail: string
   }
-  userId: string
-  date: string
   totalAmount: string
 }
 
@@ -19,6 +17,7 @@ export interface IOrderResult {
     detail: string
   }
   userId: string
-  date: string
+  createdAt: string
+  updatedAt: string
   totalAmount: string
 }

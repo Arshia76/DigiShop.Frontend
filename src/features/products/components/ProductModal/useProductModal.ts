@@ -2,37 +2,23 @@ import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Alert } from '@/components/ui'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import {
-  CreateProductSchema,
-  CreateProductType,
-  UpdateProductSchema,
-  UpdateProductType,
-} from '../../schema'
-import {
-  useCreateProductMutation,
-  useUpdateProductMutation,
-} from '../../service/query'
+import { CreateProductSchema, CreateProductType, UpdateProductSchema, UpdateProductType } from '../../schema'
+import { useCreateProductMutation, useUpdateProductMutation } from '../../service/query'
 import { useQueryClient } from 'react-query'
 import { ProductModalProps } from '.'
 import { useGetCategoriesQuery } from '@/features/categories/service/query'
 import { useProductImage } from '../ProductImage/useProductImage'
-import moment from 'moment-jalaali'
 
-export function useProductModal({
-  productModal,
-  setProductModal,
-}: ProductModalProps) {
+export function useProductModal({ productModal, setProductModal }: ProductModalProps) {
   const { type, data, isOpen } = productModal
 
   const { openFilePicker, plainFiles, clear } = useProductImage()
 
   const queryClient = useQueryClient()
 
-  const { mutate: createProduct, isLoading: isLoadingCreate } =
-    useCreateProductMutation()
+  const { mutate: createProduct, isLoading: isLoadingCreate } = useCreateProductMutation()
 
-  const { mutate: updateProduct, isLoading: isLoadingUpdate } =
-    useUpdateProductMutation()
+  const { mutate: updateProduct, isLoading: isLoadingUpdate } = useUpdateProductMutation()
 
   const { data: categories } = useGetCategoriesQuery({})
 
@@ -74,7 +60,6 @@ export function useProductModal({
     formData.append('quantity', values.quantity.toString())
     formData.append('title', values.title)
     formData.append('description', values.description)
-    formData.append('date', moment().format())
 
     if (type === 'edit') {
       formData.append('id', data._id)
@@ -112,18 +97,13 @@ export function useProductModal({
 
   useEffect(() => {
     if (data && type === 'edit') {
-      const category = categories?.find(
-        (item) => item._id === data.category._id
-      )
+      const category = categories?.find((item) => item._id === data.category._id)
 
       setValue('title', data?.title)
       setValue('description', data?.description)
       setValue('price', data?.price)
       setValue('quantity', data?.quantity)
-      setValue(
-        'image',
-        `${window.STATIC_URL?.imagePath}${data.image.replaceAll('\\', '/')}`
-      )
+      setValue('image', `${window.STATIC_URL?.imagePath}${data.image.replaceAll('\\', '/')}`)
       setValue('category', { label: category?.title, value: category?._id })
     } else {
       setValue('title', '')

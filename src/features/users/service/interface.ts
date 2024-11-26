@@ -29,4 +29,6 @@ export interface IUserResult {
   phoneNumber: string
   role: 'Admin' | 'User'
   username: string
+  createdAt: string
+  updatedAt: string
 }

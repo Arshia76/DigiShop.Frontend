@@ -9,4 +9,6 @@ export interface IUpdateCategoryData extends Partial<ICreateCategoryData> {
 export interface ICategoryResult {
   _id: string
   title: string
+  createdAt: string
+  updatedAt: string
 }

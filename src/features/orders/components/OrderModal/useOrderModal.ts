@@ -4,14 +4,11 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { CreateOrderSchema, CreateOrderType } from '../../schema'
 import { OrderModalProps } from '.'
 import { useCreateOrderMutation } from '../../service/query'
-import { useAuthContext } from '@/features/auth/context'
 import { useCartContext } from '@/features/cart/components/Cart/context'
-import moment from 'moment-jalaali'
 import { Alert } from '@/components/ui'
 
 export function useOrderModal({ orderModal, setOrderModal }: OrderModalProps) {
   const { isOpen, type } = orderModal
-  const { user } = useAuthContext()
   const { cartItems, clearCart } = useCartContext()
   const {
     control,
@@ -30,8 +27,6 @@ export function useOrderModal({ orderModal, setOrderModal }: OrderModalProps) {
         address: {
           ...values,
         },
-        userId: user.id,
-        date: moment().format(),
         totalAmount: cartItems
           .reduce((total, current) => {
             return (total += current.price * current.selectedQuantity)

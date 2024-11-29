@@ -6,6 +6,7 @@ export const Routes = {
   SIGNIN: '/signin',
   SHOP: '/shop',
   DETAIL: '/product',
+  ORDER: '/order',
   ADMIN: {
     MAIN: '/admin/main',
     PRODUCTS: '/admin/products',

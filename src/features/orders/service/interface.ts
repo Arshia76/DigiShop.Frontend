@@ -5,7 +5,10 @@ export interface ICreateOrderData {
     postalCode: string
     detail: string
   }
-  totalAmount: string
+  products: {
+    productId: string
+    selectedQuantity: number
+  }[]
 }
 
 export interface IOrderResult {
@@ -16,8 +19,14 @@ export interface IOrderResult {
     postalCode: string
     detail: string
   }
+  products: {
+    productId: string
+    title: string
+    price: number
+    quantity: number
+  }[]
   userId: string
   createdAt: string
   updatedAt: string
-  totalAmount: string
+  totalAmount: number
 }

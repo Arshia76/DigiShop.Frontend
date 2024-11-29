@@ -6,6 +6,11 @@ const getOrders = async () => {
   return response.data
 }
 
+const getOrder = async (id: string) => {
+  const response = await http.get(`orders/${id}`)
+  return response.data
+}
+
 const getUserOrders = async () => {
   const response = await http.get('orders/currentUser')
   return response.data
@@ -16,4 +21,4 @@ const createOrder = async (data: ICreateOrderData) => {
   return response.data
 }
 
-export { getOrders, getUserOrders, createOrder }
+export { getOrders, getOrder, getUserOrders, createOrder }

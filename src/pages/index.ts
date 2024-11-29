@@ -10,6 +10,7 @@ import { SigninPage } from './Auth/Signin'
 import { ShopPage } from './Shop'
 import { ProductPage } from './Product'
 import { OrdersPage } from './admin/Orders'
+import { OrderPage } from './Order'
 
 export {
   HomePage,
@@ -24,4 +25,5 @@ export {
   ProfilePage,
   UsersPage,
   ShopPage,
+  OrderPage,
 }

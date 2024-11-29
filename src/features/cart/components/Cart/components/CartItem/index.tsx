@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Svg } from '@/assets'
 import { Select, SvgComponent } from '@/components/ui'
-import { useCartContext } from '../../context'
+import { useCartContext } from '../../../../context'
 
 export interface CartItemProps {
   id: string

@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { CreateOrderSchema, CreateOrderType } from '../../schema'
 import { OrderModalProps } from '.'
 import { useCreateOrderMutation } from '../../service/query'
-import { useCartContext } from '@/features/cart/components/Cart/context'
+import { useCartContext } from '@/features/cart/context'
 import { Alert } from '@/components/ui'
 
 export function useOrderModal({ orderModal, setOrderModal }: OrderModalProps) {
@@ -27,11 +27,10 @@ export function useOrderModal({ orderModal, setOrderModal }: OrderModalProps) {
         address: {
           ...values,
         },
-        totalAmount: cartItems
-          .reduce((total, current) => {
-            return (total += current.price * current.selectedQuantity)
-          }, 0)
-          .toString(),
+        products: cartItems.map((item) => ({
+          productId: item.id,
+          selectedQuantity: item.selectedQuantity,
+        })),
       },
       {
         onSuccess() {

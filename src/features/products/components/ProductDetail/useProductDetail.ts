@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useGetProductQuery } from '../../service/query'
-import { useCartContext } from '@/features/cart/components/Cart/context'
+import { useCartContext } from '@/features/cart/context'
 
 export function useProductDetail() {
   const { id } = useParams()

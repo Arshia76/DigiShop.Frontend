@@ -74,6 +74,19 @@ const router = createBrowserRouter([
           }
         },
       },
+      {
+        path: 'order/:id',
+        lazy: async () => {
+          const { OrderPage } = await import('@/pages')
+          return {
+            element: (
+              <ProtectedRoute roles={['User']}>
+                <OrderPage />
+              </ProtectedRoute>
+            ),
+          }
+        },
+      },
     ],
   },
 

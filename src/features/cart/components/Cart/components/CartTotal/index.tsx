@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui'
-import { useCartContext } from '../../context'
+import { useCartContext } from '../../../../context'
 import { OrderModal } from '@/features/orders/components'
 import { IModal } from '@/lib/interface'
 
@@ -20,7 +20,7 @@ const CartTotal = () => {
   })
 
   return (
-    <div className='flex flex-col rounded-lg border border-gray-300 p-4 gap-4 h-fit max-w-xs'>
+    <div className='flex flex-col rounded-lg border shadow-md border-gray-300 p-4 gap-4 h-fit max-w-xs'>
       <div className='flex items-center justify-between'>
         <span>مبلغ کل</span>
         <span>{totalPrice.toLocaleString()} ریال</span>

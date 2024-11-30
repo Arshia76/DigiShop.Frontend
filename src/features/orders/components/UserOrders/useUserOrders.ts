@@ -16,22 +16,9 @@ export function useUserOrders() {
 
   const colDefs: ColDef[] | ColGroupDef[] = [
     {
-      field: 'address.province',
-      headerName: 'استان',
-      headerTooltip: 'استان',
-      checkboxSelection: true,
-      headerCheckboxSelection: true,
-    },
-    {
-      field: 'address.city',
-      headerName: 'شهر',
-      headerTooltip: 'شهر',
-    },
-
-    {
-      field: 'address.postalCode',
-      headerName: 'کدپستی',
-      headerTooltip: 'کدپستی',
+      field: '_id',
+      headerName: 'شناسه سفارش',
+      headerTooltip: 'شناسه سفارش',
     },
     {
       field: 'createdAt',

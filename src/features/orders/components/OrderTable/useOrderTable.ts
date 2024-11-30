@@ -16,22 +16,19 @@ export function useOrderTable() {
 
   const colDefs: ColDef[] | ColGroupDef[] = [
     {
-      field: 'address.province',
-      headerName: 'استان',
-      headerTooltip: 'استان',
-      checkboxSelection: true,
-      headerCheckboxSelection: true,
+      field: '_id',
+      headerName: 'شناسه سفارش',
+      headerTooltip: 'شناسه سفارش',
     },
     {
-      field: 'address.city',
-      headerName: 'شهر',
-      headerTooltip: 'شهر',
+      field: 'user._id',
+      headerName: 'شناسه کاربر',
+      headerTooltip: 'شناسه کاربر',
     },
-
     {
-      field: 'address.postalCode',
-      headerName: 'کدپستی',
-      headerTooltip: 'کدپستی',
+      valueGetter: ({ data }) => data.user.firstName + ' ' + data.user.lastName,
+      headerName: 'نام کاربر',
+      headerTooltip: 'نام کاربر',
     },
     {
       field: 'createdAt',

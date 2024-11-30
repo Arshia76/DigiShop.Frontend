@@ -5,13 +5,11 @@ import { ColDef, ColGroupDef } from 'ag-grid-enterprise'
 import { CustomCellRendererProps } from 'ag-grid-react'
 import { GridActionItemProps } from '@/components/ui/Table/components/actions'
 import { Svg } from '@/assets'
-import {
-  useDeleteCategoryMutation,
-  useGetCategoriesQuery,
-} from '../../service/query'
+import { useDeleteCategoryMutation, useGetCategoriesQuery } from '../../service/query'
 import { ITableRef } from '@/components/ui/Table'
 import { DeleteModalProps } from '@/components/shared/DeleteModal'
 import { Alert } from '@/components/ui'
+import { ICategoryResult } from '../../service/interface'
 
 export function useCategoryTable() {
   const [categoryModal, setCategoryModal] = useState<IModal>({
@@ -20,7 +18,7 @@ export function useCategoryTable() {
     type: 'add',
   })
 
-  const gridRef = useRef<ITableRef<any> | null>(null)
+  const gridRef = useRef<ITableRef<ICategoryResult> | null>(null)
 
   const queryClient = useQueryClient()
 
@@ -54,9 +52,7 @@ export function useCategoryTable() {
     },
   ]
 
-  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (
-    row: CustomCellRendererProps
-  ) => [
+  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (row: CustomCellRendererProps) => [
     {
       theme: 'yellow',
       icon: Svg.Edit_Icon,

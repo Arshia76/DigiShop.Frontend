@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 const buttonVariants = cva(
   `flex gap-2 items-center justify-center rounded-md outline-none font-medium 
   transition-all duration-300 focus:outline-none h-10 text-md ease-in
-  ease-in disabled:cursor-not-allowed font-medium 
+  ease-in disabled:cursor-not-allowed disabled:opacity-80 font-medium 
   `,
   {
     variants: {

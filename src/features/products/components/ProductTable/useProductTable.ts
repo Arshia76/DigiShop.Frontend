@@ -9,6 +9,7 @@ import { Svg } from '@/assets'
 import { useDeleteProductMutation, useGetProductsQuery } from '../../service/query'
 import { ITableRef } from '@/components/ui/Table'
 import { DeleteModalProps } from '@/components/shared/DeleteModal'
+import { IProductResult } from '../../service/interface'
 
 export function useProductTable() {
   const [productModal, setProductModal] = useState<IModal>({
@@ -17,7 +18,7 @@ export function useProductTable() {
     type: 'add',
   })
 
-  const gridRef = useRef<ITableRef<any> | null>(null)
+  const gridRef = useRef<ITableRef<IProductResult> | null>(null)
 
   const queryClient = useQueryClient()
 

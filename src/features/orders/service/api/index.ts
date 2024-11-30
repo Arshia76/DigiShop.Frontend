@@ -12,7 +12,7 @@ const getOrder = async (id: string) => {
 }
 
 const getUserOrders = async () => {
-  const response = await http.get('orders/currentUser')
+  const response = await http.get('orders/current/user')
   return response.data
 }
 

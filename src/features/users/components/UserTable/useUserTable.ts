@@ -9,6 +9,7 @@ import { Svg } from '@/assets'
 import { useDeleteUserMutation, useGetUsersQuery } from '../../service/query'
 import { ITableRef } from '@/components/ui/Table'
 import { DeleteModalProps } from '@/components/shared/DeleteModal'
+import { IUserResult } from '../../service/interface'
 
 export function useUserTable() {
   const [userModal, setUserModal] = useState<IModal>({
@@ -17,7 +18,7 @@ export function useUserTable() {
     type: 'add',
   })
 
-  const gridRef = useRef<ITableRef<any> | null>(null)
+  const gridRef = useRef<ITableRef<IUserResult> | null>(null)
 
   const queryClient = useQueryClient()
 
@@ -62,9 +63,7 @@ export function useUserTable() {
     },
   ]
 
-  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (
-    row: CustomCellRendererProps
-  ) => [
+  const actions: (row: CustomCellRendererProps) => GridActionItemProps[] = (row: CustomCellRendererProps) => [
     {
       theme: 'yellow',
       icon: Svg.Edit_Icon,

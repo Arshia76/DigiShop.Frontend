@@ -31,7 +31,7 @@ const AuthContext = createContext<{
 })
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cookies, setCookie] = useCookies(['DigiShop_User'])
+  const [cookies, setCookie, removeCookie] = useCookies(['DigiShop_User'])
   const [user, setUser] = useState<{
     access_token: string
     id: string
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       role: '',
     })
     setIsAuthenticated(false)
-    setCookie('DigiShop_User', null)
+    removeCookie('DigiShop_User')
   }
 
   useEffect(() => {
